@@ -7,7 +7,7 @@ const config: Config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -44,6 +44,9 @@ const config: Config = {
         'blue-violet-500': '#4E57D3',
         'lilac': '#C1A4FF',
         'midnight-blue': '#1F2533'
+      },
+      borderColor: {
+        'pale-blue-transparent': 'rgba(111, 121, 253, 0.10)',
       },
       colors: {
         border: "hsl(var(--border))",

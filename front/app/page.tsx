@@ -1,16 +1,16 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { CardComponent } from "./components/CardComponent";
 
 export default function Home() {
   const [showCard, setShowCard] = useState<boolean>(false);
-  const [selectedSign, setSelectedSign] = useState<string>("");
+  const [cardType, setCardType] = useState<string>("");
 
-  const handleCardClick = (signType: string) => {
-    setShowCard(true)
-    setSelectedSign(signType)
-  }
+  const handleCardClick = (cardType: string) => {
+    setShowCard(true);
+    setCardType(cardType);
+  };
 
   return (
     <main className="grid md:grid-cols-2 max-w-full h-full overflow-hidden">
@@ -41,17 +41,26 @@ export default function Home() {
         </h2>
         {!showCard && (
           <div className="flex flex-col gap-10 sm:flex-row mt-11 max-w-full">
-            <Button onClick={() => handleCardClick("entrar")} className="font-semibold bg-pale-blue px-20 hover:bg-blue-violet-600 transition ease-in-out duration-300">Entrar</Button>
-            <Button onClick={() => handleCardClick("cadastrar")} className="font-semibold bg-pale-blue-transparent px-20 ">Cadastrar</Button>
+            <Button
+              onClick={() => handleCardClick("entrar")}
+              className="font-semibold bg-pale-blue px-20 hover:bg-blue-violet-600 transition ease-in-out duration-300"
+            >
+              Entrar
+            </Button>
+            <Button
+              onClick={() => handleCardClick("cadastrar")}
+              className="font-semibold bg-pale-blue-transparent px-20 "
+            >
+              Cadastrar
+            </Button>
           </div>
         )}
         {showCard && (
           <>
-            <CardComponent />
+            <CardComponent cardType={cardType} setCardType={setCardType} />
           </>
-
         )}
       </section>
     </main>
-  )
+  );
 }
