@@ -20,6 +20,7 @@ const config: Config = {
       textColor: {
         'dark-blue': '#0A0D14',
         'gray-1000': '#121620',
+        'pale-blue': '#6F79FD',
         'blue-gray': '#666C7D',
         'blue-violet-500': '#4E57D3',
         'lilac': '#C1A4FF',

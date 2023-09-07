@@ -1,7 +1,17 @@
 "use client"
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { CardComponent } from "./components/CardComponent";
 
 export default function Home() {
+  const [showCard, setShowCard] = useState<boolean>(false);
+  const [selectedSign, setSelectedSign] = useState<string>("");
+
+  const handleCardClick = (signType: string) => {
+    setShowCard(true)
+    setSelectedSign(signType)
+  }
+
   return (
     <main className="grid md:grid-cols-2 max-w-full h-full overflow-hidden">
       <section className="w-full h-full bg-dark-blue flex flex-col justify-center p-4">
@@ -29,10 +39,18 @@ export default function Home() {
           <br />
           <span className="text-center">Conecte-se. Colabore. Realize.</span>
         </h2>
-        <div className="flex flex-col gap-10 sm:flex-row mt-11 max-w-full">
-          <Button className="font-semibold bg-pale-blue px-20 hover:bg-blue-violet-600 transition ease-in-out duration-300">Entrar</Button>
-          <Button className="font-semibold bg-pale-blue-transparent px-20 ">Cadastrar</Button>
-        </div>
+        {!showCard && (
+          <div className="flex flex-col gap-10 sm:flex-row mt-11 max-w-full">
+            <Button onClick={() => handleCardClick("entrar")} className="font-semibold bg-pale-blue px-20 hover:bg-blue-violet-600 transition ease-in-out duration-300">Entrar</Button>
+            <Button onClick={() => handleCardClick("cadastrar")} className="font-semibold bg-pale-blue-transparent px-20 ">Cadastrar</Button>
+          </div>
+        )}
+        {showCard && (
+          <>
+            <CardComponent />
+          </>
+
+        )}
       </section>
     </main>
   )
