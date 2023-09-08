@@ -131,7 +131,7 @@ model TeamMember {
   team Team @relation(fields: [teamId], references: [id])
 }
 
-model ChatType {
+model Chat {
   id Int     @id @default(autoincrement())
   chatType String
   chatName String
@@ -148,7 +148,7 @@ model ChatMember {
   userId Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  chat ChatType @relation(fields: [chatId], references: [id])
+  chat Chat @relation(fields: [chatId], references: [id])
   user User @relation(fields: [userId], references: [id])
 }
 
@@ -160,5 +160,5 @@ model Message {
   chatId Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  chat ChatType @relation(fields: [chatId], references: [id])
+  chat Chat @relation(fields: [chatId], references: [id])
 }
