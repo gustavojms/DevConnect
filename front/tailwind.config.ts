@@ -19,6 +19,7 @@ const config: Config = {
     extend: {
       textColor: {
         'dark-blue': '#0A0D14',
+        'gray-250': '#A6A8AA',
         'gray-1000': '#121620',
         'pale-blue': '#6F79FD',
         'blue-gray': '#666C7D',
