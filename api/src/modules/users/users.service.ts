@@ -7,9 +7,9 @@ import { UsersRepository } from './repositories/users.repository';
 export class UsersService {
   constructor(private userRepository: UsersRepository) {}
 
-  create(createUserDto: CreateUserDto) {
-    // const user = await this.userRepository.create();
-    // return user;
+  async create(createUserDto: CreateUserDto) {
+    const user = await this.userRepository.create(createUserDto);
+    return user;
   }
 
   findAll() {
