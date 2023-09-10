@@ -1,9 +1,9 @@
-import { CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { CardContent, CardFooter } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
@@ -11,22 +11,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
 type CardProps = {
   cardType: string;
 };
 
-export function CardContents(props: CardProps) {
+export default function CardContents(props: CardProps) {
   const form = useForm();
 
-  async function onSubmit(data: any) {
+  async function onSubmit() {
     // TODO: implementar a chamada da API
   }
 
   return (
-    <>
-      {props.cardType === "entrar" ? (
+    <div>
+      {props.cardType === 'entrar' ? (
         <>
           <CardContent className="flex flex-col justify-center px-[68px] mt-5">
             <Form {...form}>
@@ -36,7 +36,9 @@ export function CardContents(props: CardProps) {
                   name="username"
                   render={({ field }) => (
                     <FormItem className="mb-2">
-                      <FormLabel className="text-gray-250 text-opacity-70">Usuário</FormLabel>
+                      <FormLabel className="text-gray-250 text-opacity-70">
+                        Usuário
+                      </FormLabel>
                       <FormControl>
                         <Input {...field} type="text" />
                       </FormControl>
@@ -49,7 +51,9 @@ export function CardContents(props: CardProps) {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-250 text-opacity-70">Senha</FormLabel>
+                      <FormLabel className="text-gray-250 text-opacity-70">
+                        Senha
+                      </FormLabel>
                       <FormControl>
                         <Input {...field} type="password" />
                       </FormControl>
@@ -72,7 +76,7 @@ export function CardContents(props: CardProps) {
               </form>
             </Form>
           </CardContent>
-          <CardFooter className="flex justify-center mt-5"></CardFooter>
+          <CardFooter className="flex justify-center mt-5" />
         </>
       ) : (
         <>
@@ -82,15 +86,12 @@ export function CardContents(props: CardProps) {
             <Input type="password" placeholder="Senha" />
             <div className="flex gap-2 items-center">
               <Checkbox id="terms" className="border-gray-400" />
-              <label
-                htmlFor="terms"
-                className="text-sm text-white font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Aceito os
+              <span className="text-sm text-white font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                Aceito os&nbsp;
                 <Link href="terms" className="text-pale-blue underline">
                   Termos de Serviço
                 </Link>
-              </label>
+              </span>
             </div>
           </CardContent>
           <CardFooter className="flex justify-center mt-5">
@@ -100,6 +101,6 @@ export function CardContents(props: CardProps) {
           </CardFooter>
         </>
       )}
-    </>
+    </div>
   );
 }

@@ -1,15 +1,16 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { CardComponent } from "./components/CardComponent";
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import CardComponent from './components/CardComponent';
 
 export default function Home() {
   const [showCard, setShowCard] = useState<boolean>(false);
-  const [cardType, setCardType] = useState<string>("");
+  const [cardType, setCardType] = useState<string>('');
 
-  const handleCardClick = (cardType: string) => {
+  const handleCardClick = (type: string) => {
     setShowCard(true);
-    setCardType(cardType);
+    setCardType(type);
   };
 
   return (
@@ -42,13 +43,13 @@ export default function Home() {
         {!showCard && (
           <div className="flex flex-col gap-10 sm:flex-row mt-11 max-w-full">
             <Button
-              onClick={() => handleCardClick("entrar")}
+              onClick={() => handleCardClick('entrar')}
               className="font-semibold bg-pale-blue px-20 hover:bg-blue-violet-600 transition ease-in-out duration-300"
             >
               Entrar
             </Button>
             <Button
-              onClick={() => handleCardClick("cadastrar")}
+              onClick={() => handleCardClick('cadastrar')}
               className="font-semibold bg-pale-blue-transparent px-20 "
             >
               Cadastrar
@@ -56,9 +57,7 @@ export default function Home() {
           </div>
         )}
         {showCard && (
-          <>
-            <CardComponent cardType={cardType} setCardType={setCardType} />
-          </>
+          <CardComponent cardType={cardType} setCardType={setCardType} />
         )}
       </section>
     </main>
