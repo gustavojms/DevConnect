@@ -9,8 +9,8 @@ export default function Home() {
   const [cardType, setCardType] = useState<string>('');
 
   const handleCardClick = (type: string) => {
-    setShowCard(true);
     setCardType(type);
+    setShowCard(true);
   };
 
   return (
