@@ -8,13 +8,28 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export default function LoginCard() {
   const form = useForm();
+  const router = useRouter();
 
-  async function onSubmit() {}
+  async function onSubmit(data: any) {
+    const response = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+
+    if (response?.error) {
+      console.log(response);
+    } else {
+      router.replace('/home');
+    }
+  }
 
   return (
     <Form {...form}>
@@ -24,7 +39,7 @@ export default function LoginCard() {
       >
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem className="mb-2">
               <FormLabel className="text-gray-250 text-opacity-70">

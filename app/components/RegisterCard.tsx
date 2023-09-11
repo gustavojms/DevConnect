@@ -19,18 +19,23 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import submitData from '../services/UserService';
+import { signIn } from 'next-auth/react';
 
 export default function RegisterCard() {
   const form = useForm();
   const router = useRouter();
 
   async function onSubmit(data: any) {
-    const response = await submitData(data);
+    const response = await signIn('credentials', {
+      username: data.username,
+      password: data.password,
+      redirect: false,
+    });
 
-    if (response.status === 201) {
-      alert('Usuário cadastrado com sucesso!');
+    if (response?.error) {
+      console.log(response.error);
     } else {
-      alert('Erro ao cadastrar usuário!');
+      router.replace('/home');
     }
   }
 
