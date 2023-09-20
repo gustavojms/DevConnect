@@ -9,14 +9,16 @@ const nextAuthOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        email: { label: 'email', type: 'text' },
+        username: { label: 'username', type: 'text' },
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
+        console.log(credentials);
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/users/login`,
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
           {
-            ...credentials,
+            username: credentials?.username,
+            password: credentials?.password,
           },
           {
             headers: {
@@ -24,6 +26,7 @@ const nextAuthOptions: NextAuthOptions = {
             },
           },
         );
+        console.log(response);
         const user = await response.data;
         if (user) {
           return user;
@@ -32,9 +35,7 @@ const nextAuthOptions: NextAuthOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: '/',
-  },
+  pages: { signIn: '/' },
   callbacks: {
     async jwt({ token, user }: any) {
       user && (token.user = user);

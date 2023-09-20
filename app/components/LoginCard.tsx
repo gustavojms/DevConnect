@@ -18,8 +18,9 @@ export default function LoginCard() {
   const router = useRouter();
 
   async function onSubmit(data: any) {
+    console.log(data);
     const response = await signIn('credentials', {
-      email: data.email,
+      username: data.username,
       password: data.password,
       redirect: false,
     });
@@ -39,7 +40,7 @@ export default function LoginCard() {
       >
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem className="mb-2">
               <FormLabel className="text-gray-250 text-opacity-70">

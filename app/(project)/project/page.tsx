@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { LuSearch } from 'react-icons/lu';
@@ -5,8 +7,18 @@ import { RiHome5Fill, RiCodeSSlashFill } from 'react-icons/ri';
 import { MdGroups } from 'react-icons/md';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Separator } from '@/components/ui/separator';
+import { useEffect } from 'react';
+import { fetchProjects } from '@/app/services/ApiService';
 
 export default function Project() {
+  useEffect(() => {
+    async function projects() {
+      const response = await fetchProjects();
+      console.log(response);
+    }
+
+    projects();
+  }, []);
   return (
     <header className="bg-gray-1000 h-14 flex relative">
       <aside className="bg-gray-1000 p-6 fixed h-full max-w-[250px]">

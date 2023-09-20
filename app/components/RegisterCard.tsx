@@ -18,7 +18,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import submitData from '../services/UserService';
+import { submitData } from '../services/ApiService';
 import { signIn } from 'next-auth/react';
 
 export default function RegisterCard() {
@@ -26,14 +26,15 @@ export default function RegisterCard() {
   const router = useRouter();
 
   async function onSubmit(data: any) {
-    const response = await signIn('credentials', {
-      username: data.username,
+    const response = await submitData(data);
+    console.log(response);
+    const signInResponse = await signIn('credentials', {
+      email: data.email,
       password: data.password,
       redirect: false,
     });
-
-    if (response?.error) {
-      console.log(response.error);
+    if (signInResponse?.error) {
+      console.log(signInResponse);
     } else {
       router.replace('/home');
     }
