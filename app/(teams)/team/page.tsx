@@ -7,7 +7,7 @@ import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Separator } from '@/components/ui/separator';
 
-export default function Project() {
+export default function Team() {
   return (
     <header className="bg-gray-1000 h-14 flex relative">
       <aside className="bg-gray-1000 p-6 fixed h-full max-w-[250px]">
