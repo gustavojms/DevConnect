@@ -33,16 +33,34 @@ export default function Project() {
             <MdGroups className="mr-2 h-6 w-6" />
             Comunidades
           </Link>
-          <Link
-            href="/projetos"
-            className="flex py-4 bg-inherit text-gray-ba font-semibold"
-          >
-            <RiCodeSSlashFill className="mr-2 h-6 w-6" />
-            Projetos
-          </Link>
-          <Button className="flex py-4 bg-inherit text-violet-900 font-semibold">
-            Criar Projetos
-          </Button>
+          <div>
+            <div className="flex">
+              <Link
+                href="/projetos"
+                className="flex py-4 bg-inherit text-gray-ba font-semibold"
+              >
+                <RiCodeSSlashFill className="mr-2 h-6 w-6" />
+                Projetos
+              </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="#e5e5e5"
+                className="w-6 h-6 mt-4 ml-4 cursor-pointer hover:bg-violet-900 rounded-full"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </div>
+            <Button className="flex py-4 bg-inherit text-violet-900 font-semibold">
+              Criar Projetos
+            </Button>
+          </div>
           <Link
             href="/configuracoes"
             className="flex py-4 bg-inherit text-gray-ba font-semibold"
