@@ -13,6 +13,12 @@ import { fetchProjects } from '@/app/services/ApiService';
 export default function Project() {
   useEffect(() => {
     async function projects() {
+      try {
+        const response = await fetchProjects();
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
       const response = await fetchProjects();
       console.log(response);
     }

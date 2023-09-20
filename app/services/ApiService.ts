@@ -24,3 +24,13 @@ export async function fetchProjects() {
   const response = await instance.get('/projects');
   return response;
 }
+
+export async function fetchTeams() {
+  const response = await instance.get('/teams');
+  return response;
+}
+
+export async function submitTeam(data: any) {
+  const response = await instance.post('/teams', data);
+  return response;
+}
