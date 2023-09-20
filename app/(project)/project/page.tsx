@@ -40,6 +40,9 @@ export default function Project() {
             <RiCodeSSlashFill className="mr-2 h-6 w-6" />
             Projetos
           </Link>
+          <Button className="flex py-4 bg-inherit text-violet-900 font-semibold">
+            Criar Projetos
+          </Button>
           <Link
             href="/configuracoes"
             className="flex py-4 bg-inherit text-gray-ba font-semibold"
