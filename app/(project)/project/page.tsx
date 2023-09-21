@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { fetchProjects } from '@/app/services/ApiService';
 
 export default function Project() {
-  const [projetos, setProjetos] = useState([]);
+  const [projetos, setProjetos] = useState([] as any);
 
   useEffect(() => {
     async function projects() {
@@ -25,7 +25,7 @@ export default function Project() {
   return (
     <div className="flex justify-center gap-10">
       <h1 className="text-white">Projetos:</h1>
-      {projetos.map((projeto) => (
+      {projetos.map((projeto: any) => (
         <div key={projeto.id} className="flex flex-col">
           <h1 className="text-white">{projeto.title}</h1>
         </div>
