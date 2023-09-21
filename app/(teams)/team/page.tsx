@@ -68,7 +68,7 @@ export default function Team() {
             Comunidades
           </Link>
           <Link
-            href="/projetos"
+            href="/project"
             className="flex py-4 bg-inherit text-gray-ba font-semibold"
           >
             <RiCodeSSlashFill className="mr-2 h-6 w-6" />

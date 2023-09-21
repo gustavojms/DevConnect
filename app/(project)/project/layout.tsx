@@ -1,12 +1,14 @@
 'use client';
 
 import Dropdown from '@/app/components/DropDown';
+import { fetchProjects } from '@/app/services/ApiService';
 import { SessionInterface } from '@/app/types/SessionType';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
+import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { LuSearch } from 'react-icons/lu';
 import { MdGroups } from 'react-icons/md';
@@ -18,12 +20,27 @@ type ProjectLayoutProps = {
 
 export default function ProjectLayout({ children }: ProjectLayoutProps) {
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
+  const [projetos, setProjetos] = useState([] as any);
 
   useEffect(() => {
     async function getUser() {
       const session = (await getSession()) as SessionInterface;
       setUserSession(session);
     }
+
+    async function projects() {
+      try {
+        const response = await fetchProjects();
+        setProjetos(response.data);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+      const response = await fetchProjects();
+      console.log(response);
+    }
+
+    projects();
     getUser();
   }, []);
 
@@ -56,6 +73,13 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
             </Link>
             <Dropdown />
             <Link
+              href="/team"
+              className="flex py-4 bg-inherit text-gray-ba font-semibold"
+            >
+              <BiGroup className="mr-2 h-6 w-6" />
+              Equipes
+            </Link>
+            <Link
               href="/configuracoes"
               className="flex py-4 bg-inherit text-gray-ba font-semibold"
             >
@@ -66,24 +90,14 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
           <Separator className="mt-5 bg-gray-600" />
           <h1 className="text-gray-ba text-lg mt-5">Meus projetos</h1>
           <nav className="mt-5 gap-5 grid">
-            <Link
-              href="/projetos/1"
-              className="flex justify-center py-2 bg-midnight-blue rounded-md text-gray-ba font-semibold"
-            >
-              Projeto 1
-            </Link>
-            <Link
-              href="/projetos/2"
-              className="flex justify-center py-2 bg-midnight-blue rounded-md text-gray-ba font-semibold"
-            >
-              Projeto 2
-            </Link>
-            <Link
-              href="/projetos/3"
-              className="flex justify-center py-2 bg-midnight-blue rounded-md text-gray-ba font-semibold"
-            >
-              Projeto 3
-            </Link>
+            {projetos.map((projeto: any) => (
+              <div
+                key={projeto.id}
+                className="cursor-pointer h-10 flex justify-center items-center capitalize bg-midnight-blue rounded-md text-gray-ba font-semibold"
+              >
+                <h1 className="text-white">{projeto.title}</h1>
+              </div>
+            ))}
           </nav>
         </aside>
         <h1 className="text-white w-full items-center flex justify-end">
