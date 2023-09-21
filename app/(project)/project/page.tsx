@@ -19,8 +19,6 @@ export default function Project() {
       } catch (error) {
         console.log(error);
       }
-      const response = await fetchProjects();
-      console.log(response);
     }
 
     projects();

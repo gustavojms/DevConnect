@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { LuSearch } from 'react-icons/lu';
@@ -6,8 +8,27 @@ import { MdGroups } from 'react-icons/md';
 import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Separator } from '@/components/ui/separator';
+// import { useState } from 'react';
 
 export default function Team() {
+  // const [formData, setFormData] = useState({
+  //   nome: '',
+  //   description: '',
+  // });
+
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   console.log('Dados do formulário:', formData);
+  // };
+
   return (
     <header className="bg-gray-1000 h-14 flex relative">
       <aside className="bg-gray-1000 p-6 fixed h-full max-w-[250px]">
@@ -78,69 +99,58 @@ export default function Team() {
             Projeto 3
           </Link>
         </nav>
-      </aside> 
+      </aside>
 
-    <div className='m-auto p-20 w-full static'>
-
-
-    <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-1/2 mx-auto flex-col justify-items-center ">
-    <div>
-        <h1 className='text-bold mb-5 text-gray-ba '>Crie a sua equipe e melhore a comunicação entre os membros</h1>
-    </div>
-    <div className='flex-none'>
-        <form>
-            <div className="mb-4">
-            <label htmlFor="nome" className="block text-gray-ba font-semibold mb-2">
-                Nome da equipe:
-            </label>
-            <input
-                type="text"
-                id="nome"
-                name="nome"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-            />
-            </div>
-            <div className="mb-4">
-            <label htmlFor="description" className="block text-gray-ba font-semibold mb-2">
-                Descrição
-            </label>
-            <textarea
-                name="description"
-                id="description"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                placeholder='O que a sua equipe faz?'
-            />
-            </div>
-
-            <div className="mb-4">
-                <label htmlFor="add-members" className="block text-gray-ba font-semibold mb-2">
-                    Adicionar membros
-                </label>
-                <input
-                    type="text"
-                    id="add-members"
-                    name="add-members"
-                    className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                    placeholder='Membro'
-                />
-            </div>
-            <button 
-                type="submit" 
-                className=" mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out">
-                Criar
-            </button>           
-        </form>
-      </div> 
+      <div className="m-auto p-20 w-full static">
+        <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-1/2 mx-auto flex-col justify-items-center ">
+          <div>
+            <h1 className="text-bold mb-5 text-gray-ba ">
+              Crie a sua equipe e melhore a comunicação entre os membros
+            </h1>
+          </div>
+          <div className="flex-none">
+            {/* <form onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label htmlFor="nome" className="block text-gray-ba font-semibold mb-2">
+          Nome da equipe:
+        </label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+          value={formData.nome}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="description" className="block text-gray-ba font-semibold mb-2">
+          Descrição
+        </label>
+        <textarea
+          name="description"
+          id="description"
+          className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+          placeholder="O que a sua equipe faz?"
+          value={formData.description}
+          onChange={handleChange}
+        />
       </div>
 
-    </div>
-  
-    <div className="text-white w-50% items-center flex justify-end absolute right-2 top-5">
-      <h1>
-        Gustavo
-      </h1>
-    </div>
-   
+      <button
+        type="submit"
+        className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
+      >
+        Criar
+      </button>
+    </form> */}
+          </div>
+        </div>
+      </div>
+
+      <div className="text-white w-50% items-center flex justify-end absolute right-2 top-5">
+        <h1>Gustavo</h1>
+      </div>
     </header>
   );
 }
