@@ -8,26 +8,24 @@ import { MdGroups } from 'react-icons/md';
 import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Separator } from '@/components/ui/separator';
-// import { useState } from 'react';
+ import { useState } from 'react';
 
 export default function Team() {
-  // const [formData, setFormData] = useState({
-  //   nome: '',
-  //   description: '',
-  // });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log('Dados do formulário:', formData);
-  // };
+   const [formData, setFormData] = useState({
+     nome: '',
+     description: '',
+   })
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+     const { name, value } = e.target;
+     setFormData({
+       ...formData,
+       [name]: value,
+     });
+   }
+   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+     e.preventDefault();
+     console.log('Dados do formulário:', formData);
+   };
 
   return (
     <header className="bg-gray-1000 h-14 flex relative">
@@ -109,7 +107,7 @@ export default function Team() {
             </h1>
           </div>
           <div className="flex-none">
-            {/* <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label htmlFor="nome" className="block text-gray-ba font-semibold mb-2">
           Nome da equipe:
@@ -143,7 +141,7 @@ export default function Team() {
       >
         Criar
       </button>
-    </form> */}
+    </form>
           </div>
         </div>
       </div>
