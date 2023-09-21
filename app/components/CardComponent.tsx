@@ -1,7 +1,8 @@
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Dispatch, SetStateAction } from 'react';
-import CardContents from './CardContent';
+import LoginCard from './LoginCard';
+import RegisterCard from './RegisterCard';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 type CardProps = {
   cardType: string;
@@ -39,7 +40,9 @@ export default function CardComponent(props: CardProps) {
           </Button>
         </CardTitle>
       </CardHeader>
-      <CardContents cardType={props.cardType} />
+      <CardContent>
+        {props.cardType === 'entrar' ? <LoginCard /> : <RegisterCard />}
+      </CardContent>
     </Card>
   );
 }
