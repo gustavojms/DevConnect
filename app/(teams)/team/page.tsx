@@ -111,7 +111,6 @@ export default function Team() {
       <div className="mb-4">
         <label htmlFor="nome" className="block text-gray-ba font-semibold mb-2">
           Nome da equipe:
-        </label>
         <input
           type="text"
           id="nome"
@@ -119,12 +118,12 @@ export default function Team() {
           className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
           value={formData.nome}
           onChange={handleChange}
-        />
+          />
+          </label>
       </div>
       <div className="mb-4">
         <label htmlFor="description" className="block text-gray-ba font-semibold mb-2">
           Descrição
-        </label>
         <textarea
           name="description"
           id="description"
@@ -132,7 +131,8 @@ export default function Team() {
           placeholder="O que a sua equipe faz?"
           value={formData.description}
           onChange={handleChange}
-        />
+          />
+          </label>
       </div>
 
       <button
