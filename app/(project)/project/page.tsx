@@ -14,8 +14,12 @@ import Dropdown from '@/app/components/DropDown';
 export default function Project() {
   useEffect(() => {
     async function projects() {
-      const response = await fetchProjects();
-      console.log(response);
+      try {
+        const response = await fetchProjects();
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     projects();
