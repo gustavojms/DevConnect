@@ -13,7 +13,6 @@ const nextAuthOptions: NextAuthOptions = {
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log(credentials);
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
           {
@@ -26,7 +25,6 @@ const nextAuthOptions: NextAuthOptions = {
             },
           },
         );
-        console.log(response);
         const user = await response.data;
         if (user) {
           return user;

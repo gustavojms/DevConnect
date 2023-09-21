@@ -33,6 +33,7 @@ const config: Config = {
         'gray-1000': '#121620',
         'pale-blue': '#6F79FD',
         'pale-blue-transparent': 'rgba(111, 121, 253, 0.10)',
+        'pale-blue-card': 'rgba(111, 121, 253, 0.15)',
         'blue-gray': '#666C7D',
         'blue-violet-500': '#4E57D3',
         'blue-violet-600': '#505AE0',
