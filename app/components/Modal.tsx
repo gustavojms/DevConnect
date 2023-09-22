@@ -46,6 +46,27 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                 placeholder="O que a sua equipe faz?"
               />
+              <label
+                htmlFor="Time"
+                className="block text-gray-ba font-semibold mb-2"
+              >
+                Time
+              </label>
+              <select
+                name="time"
+                id="time"
+                className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              >
+                <option value="" className="bg-slate-950 border rounder-md">
+                  Time 1
+                </option>
+                <option value="" className="bg-slate-950 border rounder-md">
+                  Time 2
+                </option>
+                <option value="" className="bg-slate-950 border rounder-md">
+                  Time 3
+                </option>
+              </select>
             </div>
 
             <button
