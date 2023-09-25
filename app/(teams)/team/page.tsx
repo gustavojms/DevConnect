@@ -8,27 +8,39 @@ import { MdGroups } from 'react-icons/md';
 import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { Separator } from '@/components/ui/separator';
-// import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchTeams, submitTeam } from '@/app/services/ApiService';
 
 export default function Team() {
-  // const [formData, setFormData] = useState({
-  //   nome: '',
-  //   description: '',
-  // });
+  const [teams, setTeams] = useState([]);
+  const [formData, setFormData] = useState({
+    teamName: '',
+    description: '',
+    leaderId: 10,
+  });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitTeam(formData);
+  };
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log('Dados do formulário:', formData);
-  // };
-
+  useEffect(() => {
+    async function fetch() {
+      const response = await fetchTeams();
+      console.log(response);
+      setTeams(response.data);
+      return response;
+    }
+    fetch();
+  }, []);
   return (
     <header className="bg-gray-1000 h-14 flex relative">
       <aside className="bg-gray-1000 p-6 fixed h-full max-w-[250px]">
@@ -56,7 +68,7 @@ export default function Team() {
             Comunidades
           </Link>
           <Link
-            href="/projetos"
+            href="/project"
             className="flex py-4 bg-inherit text-gray-ba font-semibold"
           >
             <RiCodeSSlashFill className="mr-2 h-6 w-6" />
@@ -109,41 +121,55 @@ export default function Team() {
             </h1>
           </div>
           <div className="flex-none">
-            {/* <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label htmlFor="nome" className="block text-gray-ba font-semibold mb-2">
-          Nome da equipe:
-        </label>
-        <input
-          type="text"
-          id="nome"
-          name="nome"
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-          value={formData.nome}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description" className="block text-gray-ba font-semibold mb-2">
-          Descrição
-        </label>
-        <textarea
-          name="description"
-          id="description"
-          className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-          placeholder="O que a sua equipe faz?"
-          value={formData.description}
-          onChange={handleChange}
-        />
-      </div>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label
+                  htmlFor="teamName"
+                  className="block text-gray-ba font-semibold mb-2"
+                >
+                  Nome da equipe:
+                  <input
+                    type="text"
+                    id="teamName"
+                    name="teamName"
+                    className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                    value={formData.teamName}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="description"
+                  className="block text-gray-ba font-semibold mb-2"
+                >
+                  Descrição
+                  <textarea
+                    name="description"
+                    id="description"
+                    className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                    placeholder="O que a sua equipe faz?"
+                    value={formData.description}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
 
-      <button
-        type="submit"
-        className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
-      >
-        Criar
-      </button>
-    </form> */}
+              <button
+                type="submit"
+                className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
+              >
+                Criar
+              </button>
+            </form>
+            <div className="flex flex-col mt-10 justify-center text-white">
+              <h1>Times existentes:</h1>
+              {teams.map((item: any) => (
+                <div key={item.id}>
+                  <h1>{item.teamName}</h1>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
