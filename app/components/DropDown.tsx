@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RiHome5Fill, RiCodeSSlashFill } from 'react-icons/ri';
+import Modal from '@/app/components/Modal';
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,11 @@ const Dropdown = () => {
 
   const closeDropdown = () => {
     setIsOpen(false);
+  };
+
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -43,7 +49,10 @@ const Dropdown = () => {
           <div className="">
             <ul>
               <li>
-                <span className="flex py-1 bg-inherit text-violet-900 font-semibold cursor-pointer">
+                <span
+                  className="flex py-1 bg-inherit text-violet-900 font-semibold cursor-pointer"
+                  onClick={() => setShowModal(true)}
+                >
                   Criar Projetos
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -86,6 +95,7 @@ const Dropdown = () => {
                 </span>
               </li>
             </ul>
+            <Modal isvisible={showModal} onClose={handleCloseModal} />
           </div>
         )}
       </div>
