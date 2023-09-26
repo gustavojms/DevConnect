@@ -32,12 +32,9 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
       try {
         const response = await fetchProjects();
         setProjetos(response.data);
-        console.log(response);
       } catch (error) {
-        console.log(error);
+        throw new Error(error as string);
       }
-      const response = await fetchProjects();
-      console.log(response);
     }
 
     projects();
@@ -73,7 +70,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
             </Link>
             <Dropdown />
             <Link
-              href="/team"
+              href="/equipe"
               className="flex py-4 bg-inherit text-gray-ba font-semibold"
             >
               <BiGroup className="mr-2 h-6 w-6" />
@@ -92,10 +89,15 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
           <nav className="mt-5 gap-5 grid">
             {projetos.map((projeto: any) => (
               <div
-                key={projeto.id}
+                key={projeto.projectId}
                 className="cursor-pointer h-10 flex justify-center items-center capitalize bg-midnight-blue rounded-md text-gray-ba font-semibold"
               >
-                <h1 className="text-white">{projeto.title}</h1>
+                <Link
+                  href={`/projeto/${projeto.projectId}`}
+                  className="text-white"
+                >
+                  {projeto.title}
+                </Link>
               </div>
             ))}
           </nav>
@@ -104,7 +106,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
           <p className="mr-5 capitalize">{userSession?.payload.username}</p>
         </h1>
       </header>
-      <main className="w-full h-full flex justify-center ">{children}</main>
+      <main className="flex justify-center">{children}</main>
     </>
   );
 }

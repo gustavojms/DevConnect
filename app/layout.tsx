@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} h-screen bg-dark-blue`}>
+      <body className={`${poppins.className} bg-dark-blue`}>
         <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
       </body>
     </html>

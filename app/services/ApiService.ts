@@ -34,3 +34,8 @@ export async function submitTeam(data: any) {
   const response = await instance.post('/teams', data);
   return response;
 }
+
+export async function fetchProject(id: string) {
+  const response = await instance.get(`/projects/${id}`);
+  return response;
+}
