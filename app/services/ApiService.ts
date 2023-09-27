@@ -39,3 +39,8 @@ export async function fetchProject(id: string) {
   const response = await instance.get(`/projects/${id}`);
   return response;
 }
+
+export async function submitSprint(data: any) {
+  const response = await instance.post('/sprint', data);
+  return response;
+}

@@ -3,6 +3,7 @@
 import { fetchProject } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
 import Task from '../components/Task';
+import Sprint from '../components/Sprint';
 
 type ProjectSlugProps = {
   params: {
@@ -26,6 +27,7 @@ export default function SlugProject({ params }: ProjectSlugProps) {
       <p className="text-gray-ba capitalize font-bold">{project.description}</p>
 
       <Task />
+      <Sprint />
     </div>
   );
 }
