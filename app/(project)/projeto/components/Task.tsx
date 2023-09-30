@@ -1,11 +1,22 @@
-export default function Task() {
+type TaskProps = {
+  title: string;
+  description: string;
+  priority: string;
+};
+
+export default function Task(props: TaskProps) {
   return (
-    <div className="flex flex-col bg-pale-blue bg-opacity-[15%] w-56 h-40 rounded-lg">
-      <div className="bg-red-500 bg-opacity-10 w-max px-4 rounded mt-5">
-        <span className="text-red-500 font-bold uppercase">Alta</span>
+    <div
+      id="task"
+      className="flex flex-col bg-pale-blue bg-opacity-[15%] w-56 h-40 rounded-lg p-3"
+    >
+      <div className="bg-red-500 bg-opacity-10 w-max px-4 rounded mt-2">
+        <span className="text-red-500 font-bold uppercase">
+          {props.priority}
+        </span>
       </div>
-      <h1 className="text-white font-bold">Tarefa</h1>
-      <p className="text-gray-ba text-sm">Descrição</p>
+      <h1 className="text-white font-bold">{props.title}</h1>
+      <p className="text-gray-ba text-sm">{props.description}</p>
     </div>
   );
 }

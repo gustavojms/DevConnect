@@ -14,7 +14,7 @@ export default function Home() {
   };
 
   return (
-    <main className="grid md:grid-cols-2 max-w-full h-full overflow-hidden">
+    <main className="grid md:grid-cols-2 max-w-full h-screen overflow-hidden">
       <section className="w-full h-full bg-dark-blue flex flex-col justify-center p-4">
         <h1 className="text-white text-xl sm:text-2xl lg:text-3xl font-bold text-center mb-3">
           Aprimorando o Ciclo de Desenvolvimento de Software e Conectando

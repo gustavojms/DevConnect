@@ -2,12 +2,12 @@
 
 import { fetchProject } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
-import Task from '../components/Task';
 import Sprint from '../components/Sprint';
+import TaskList from '../components/TaskList';
 
 type ProjectSlugProps = {
   params: {
-    slug: string;
+    slug: any;
   };
 };
 
@@ -22,12 +22,16 @@ export default function SlugProject({ params }: ProjectSlugProps) {
     getProject();
   }, [params.slug]);
   return (
-    <div className="bg-gray-1000 flex flex-col justify-center z-10 w-full mt-5">
-      <h1 className="text-pale-blue text-3xl font-bold">{project.title}</h1>
-      <p className="text-gray-ba capitalize font-bold">{project.description}</p>
+    <div className="bg-gray-1000 flex flex-col justify-center z-10 w-full mt-5 ml-64 p-8">
+      <h1 className="text-pale-blue capitalize text-3xl font-bold">
+        {project.title}
+      </h1>
+      <p className="text-gray-ba capitalize font-bold ml-1">
+        {project.description}
+      </p>
 
-      <Task />
       <Sprint />
+      <TaskList projectId={params.slug} />
     </div>
   );
 }
