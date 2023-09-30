@@ -1,4 +1,5 @@
-import { Button } from '@/components/ui/button';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState } from 'react';
 import { submitSprint } from '../services/ApiService';
 
@@ -14,7 +15,7 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
   console.log(dataHoraISO);
   const [formData, setFormData] = useState({
     title: '',
-    term: dataHoraISO,
+    term: '',
   });
 
   const handleInputChange = (
@@ -25,6 +26,8 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
       ...formData,
       [name]: value,
     });
+    const formattedDate = formatDateToISO(selectedDate);
+    const updatedFormData = { ...formData, term: formattedDate };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,6 +38,24 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
     } catch (error) {
       console.error('Erro ao enviar a sprint:', error);
     }
+  };
+
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date: any) => {
+    setSelectedDate(date);
+    const formattedDate = formatDateToISO(date);
+    setFormData({
+      ...formData,
+      term: formattedDate,
+    });
+  };
+
+  const formatDateToISO = (date: any) => {
+    if (date) {
+      return date.toISOString();
+    }
+    return '';
   };
 
   if (!isvisible) return null;
@@ -73,13 +94,13 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
               >
                 Prazo
               </label>
-              <textarea
-                name="description"
-                id="description"
-                className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                placeholder="Prazo"
+              <DatePicker
+                className=" bg-red-500 cursor-pointer"
+                selected={selectedDate}
+                onChange={handleDateChange}
                 value={formData.term}
-                onChange={handleInputChange}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Selecione uma data"
               />
             </div>
 
