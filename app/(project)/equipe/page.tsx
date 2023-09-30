@@ -1,7 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { fetchTeams, submitTeam } from '@/app/services/ApiService';
+import {
+  fetchTeams,
+  submitTeam,
+  submitTeamMember,
+} from '@/app/services/ApiService';
 
 export default function Team() {
   const [teams, setTeams] = useState([]);
@@ -10,6 +14,12 @@ export default function Team() {
     description: '',
     leaderId: 10,
   });
+
+  const [formMember, setFormMember] = useState({
+    memberId: 19,
+    teamId: 1,
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -22,6 +32,22 @@ export default function Team() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     submitTeam(formData);
+  };
+
+  const handleChangeMember = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormMember({
+      ...formMember,
+      [name]: value,
+    });
+  };
+
+  const handleSubmitMember = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formMember);
+    submitTeamMember(1, formMember);
   };
 
   useEffect(() => {
@@ -89,6 +115,40 @@ export default function Team() {
                 <h1>{item.teamName}</h1>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="m-auto p-20 w-full static">
+        <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-1/2 mx-auto flex-col justify-items-center ">
+          <div>
+            <h1 className="text-bold mb-5 text-gray-ba ">Adicionar membros</h1>
+          </div>
+          <div className="flex-none">
+            <form onSubmit={handleSubmitMember}>
+              <div className="mb-4">
+                <label
+                  htmlFor="teamId"
+                  className="block text-gray-ba font-semibold mb-2"
+                >
+                  ID Membro:
+                  <input
+                    type="number"
+                    id="teamId"
+                    name="teamId"
+                    className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                    defaultValue={formMember.teamId}
+                    onChange={handleChangeMember}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
+                >
+                  Adicionar
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

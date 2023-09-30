@@ -54,3 +54,8 @@ export async function submitTask(projectId: number, data: any) {
   const response = await instance.post(`/projects/${projectId}/task`, data);
   return response;
 }
+
+export async function submitTeamMember(teamId: number, data: any) {
+  const response = await instance.post(`/teams/${teamId}/members/`, data);
+  return response;
+}
