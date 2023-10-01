@@ -88,17 +88,12 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
           <h1 className="text-gray-ba text-lg mt-5">Meus projetos</h1>
           <nav className="mt-5 gap-5 grid">
             {projetos.map((projeto: any) => (
-              <div
-                key={projeto.projectId}
+              <Link
+                href={`/projeto/${projeto.projectId}`}
                 className="cursor-pointer h-10 flex justify-center items-center capitalize bg-midnight-blue rounded-md text-gray-ba font-semibold"
               >
-                <Link
-                  href={`/projeto/${projeto.projectId}`}
-                  className="text-white"
-                >
-                  {projeto.title}
-                </Link>
-              </div>
+                {projeto.title}
+              </Link>
             ))}
           </nav>
         </aside>

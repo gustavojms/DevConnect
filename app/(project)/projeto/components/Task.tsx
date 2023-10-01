@@ -15,8 +15,12 @@ export default function Task(props: TaskProps) {
           {props.priority}
         </span>
       </div>
-      <h1 className="text-white font-bold">{props.title}</h1>
-      <p className="text-gray-ba text-sm">{props.description}</p>
+      <h1 className="text-white font-bold first-letter:capitalize">
+        {props.title}
+      </h1>
+      <p className="text-gray-ba text-sm first-letter:capitalize">
+        {props.description}
+      </p>
     </div>
   );
 }

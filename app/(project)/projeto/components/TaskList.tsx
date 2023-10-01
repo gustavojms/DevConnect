@@ -13,32 +13,44 @@ import {
   FormItem,
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
+import { getSession } from 'next-auth/react';
+import { SessionInterface } from '@/app/types/SessionType';
+import { TaskType } from '@/app/types/TaskType';
 
 type TaskListProps = {
   projectId: number;
 };
 
 export default function TaskList(props: TaskListProps) {
-  const [tasks, setTasks] = useState<any>([]);
-  const [newTask, setNewTask] = useState<any>();
+  const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [newTask, setNewTask] = useState<boolean>(false);
   const form = useForm();
-
   const handleNewTask = () => {
     setNewTask(!newTask);
   };
 
-  async function onSubmit(data: any) {
-    const response = await submitTask(props.projectId, data);
-    console.log(response);
+  async function getTasks() {
+    const response = await fetchTasks(props.projectId);
+    setTasks(response.data);
   }
 
   useEffect(() => {
-    async function getTasks() {
-      const response = await fetchTasks(props.projectId);
-      setTasks(response.data);
-    }
     getTasks();
   }, []);
+
+  async function onSubmit(data: any) {
+    const session = (await getSession()) as SessionInterface;
+    const response = await submitTask(props.projectId, {
+      title: data.title,
+      userId: session.payload.sub,
+      projectId: +props.projectId,
+    }).then(() => {
+      form.reset();
+      handleNewTask();
+    });
+    getTasks();
+    return response;
+  }
 
   return (
     <div className="flex flex-col items-start p-4 rounded-lg mr-4 gap-5">
@@ -67,7 +79,7 @@ export default function TaskList(props: TaskListProps) {
                       Titulo da tarefa
                     </FormLabel>
                     <FormControl>
-                      <Input {...field} type="text" />
+                      <Input {...field} type="text" className="w-56" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
