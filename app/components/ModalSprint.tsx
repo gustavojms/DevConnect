@@ -95,12 +95,12 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
                 Prazo
               </label>
               <DatePicker
-                className=" bg-red-500 cursor-pointer"
+                className="w-full text-black cursor-pointer p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                 selected={selectedDate}
                 onChange={handleDateChange}
                 value={formData.term}
                 dateFormat="dd/MM/yyyy"
-                placeholderText="Selecione uma data"
+                placeholderText="dd/mm/yyyy"
               />
             </div>
 
