@@ -69,6 +69,9 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
           X
         </span>
         <div className="bg-slate-950 p-2 rounded text-white">
+          <h1 className="text-center mb-5 justify-center items-center text-3xl flex bg-inherit text-pale-blue font-semibold ">
+            <span>Nova Sprint</span>
+          </h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
