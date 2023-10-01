@@ -46,7 +46,6 @@ export default function Team() {
 
   const handleSubmitMember = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formMember);
     submitTeamMember(1, formMember);
   };
 

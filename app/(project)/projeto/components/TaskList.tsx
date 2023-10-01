@@ -92,6 +92,7 @@ export default function TaskList(props: TaskListProps) {
 
       {tasks.map((task: any) => (
         <Task
+          taskId={task.taskId}
           title={task.title}
           description={task.description}
           priority={task.priority}
