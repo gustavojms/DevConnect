@@ -56,8 +56,10 @@ export async function submitTask(projectId: number, data: Partial<TaskType>) {
   return response;
 }
 
-export async function updateTask(taskId: number, data: TaskType) {
-  const response = await instance.patch(`/task/${taskId}`, data);
+export async function updateTaskStatus(taskId: number, status: string) {
+  const response = await instance.patch(`/task/${taskId}`, {
+    status,
+  });
   return response;
 }
 

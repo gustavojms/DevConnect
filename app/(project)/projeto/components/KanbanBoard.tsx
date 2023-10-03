@@ -1,4 +1,4 @@
-import { fetchTasks, updateTask } from '@/app/services/ApiService';
+import { fetchTasks, updateTaskStatus } from '@/app/services/ApiService';
 import { TaskType } from '@/app/types/TaskType';
 import { useEffect, useState } from 'react';
 import TaskList from './TaskList';
@@ -19,7 +19,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
     const task = tasks.find((task) => task.taskId === parseInt(taskId));
     if (task && column) {
       task.status = column;
-      await updateTask(task.taskId, task);
+      await updateTaskStatus(task.taskId, task.status);
       setTasks([...tasks]);
     }
   };
