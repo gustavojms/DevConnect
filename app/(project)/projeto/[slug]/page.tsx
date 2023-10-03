@@ -3,7 +3,7 @@
 import { fetchProject } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
 import Sprint from '../components/Sprint';
-import TaskList from '../components/TaskList';
+import KanbanBoard from '../components/KanbanBoard';
 
 type ProjectSlugProps = {
   params: {
@@ -31,7 +31,7 @@ export default function SlugProject({ params }: ProjectSlugProps) {
       </p>
 
       <Sprint />
-      <TaskList projectId={params.slug} />
+      <KanbanBoard projectId={params.slug} />
     </div>
   );
 }
