@@ -37,7 +37,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
   }, [props.projectId, tasks]);
 
   return (
-    <div className="flex justify-evenly">
+    <div className="flex gap-20">
       {columns.map((column, index) => (
         <div
           key={index}
