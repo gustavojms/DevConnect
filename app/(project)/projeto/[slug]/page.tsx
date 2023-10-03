@@ -21,6 +21,7 @@ export default function SlugProject({ params }: ProjectSlugProps) {
     }
     getProject();
   }, [params.slug]);
+
   return (
     <div className="bg-gray-1000 flex flex-col justify-center z-10 w-full mt-5 ml-64 p-8">
       <h1 className="text-pale-blue capitalize text-3xl font-bold">

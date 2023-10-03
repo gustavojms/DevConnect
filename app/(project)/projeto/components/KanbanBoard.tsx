@@ -34,7 +34,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
       setTasks(response.data);
     }
     getTasks();
-  }, [props.projectId, tasks]);
+  }, [props.projectId]);
 
   return (
     <div className="flex gap-20">
