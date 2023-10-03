@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import { SessionInterface } from '../types/SessionType';
+import { TaskType } from '../types/TaskType';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -50,8 +51,13 @@ export async function fetchTasks(projectId: number) {
   return response;
 }
 
-export async function submitTask(projectId: number, data: any) {
+export async function submitTask(projectId: number, data: Partial<TaskType>) {
   const response = await instance.post(`/projects/${projectId}/task`, data);
+  return response;
+}
+
+export async function updateTask(taskId: number, data: TaskType) {
+  const response = await instance.patch(`/task/${taskId}`, data);
   return response;
 }
 
