@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 import { SessionInterface } from '../types/SessionType';
+import { TaskType } from '../types/TaskType';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -32,5 +33,37 @@ export async function fetchTeams() {
 
 export async function submitTeam(data: any) {
   const response = await instance.post('/teams', data);
+  return response;
+}
+
+export async function fetchProject(id: string) {
+  const response = await instance.get(`/projects/${id}`);
+  return response;
+}
+
+export async function submitSprint(data: any) {
+  const response = await instance.post('/sprint', data);
+  return response;
+}
+
+export async function fetchTasks(projectId: number) {
+  const response = await instance.get(`/projects/${projectId}/task`);
+  return response;
+}
+
+export async function submitTask(projectId: number, data: Partial<TaskType>) {
+  const response = await instance.post(`/projects/${projectId}/task`, data);
+  return response;
+}
+
+export async function updateTaskStatus(taskId: number, status: string) {
+  const response = await instance.patch(`/task/${taskId}`, {
+    status,
+  });
+  return response;
+}
+
+export async function submitTeamMember(teamId: number, data: any) {
+  const response = await instance.post(`/teams/${teamId}/members/`, data);
   return response;
 }

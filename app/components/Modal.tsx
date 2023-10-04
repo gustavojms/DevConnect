@@ -9,7 +9,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   if (!isvisible) return null;
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
       <div className="w-[600px] flex flex-col">
         <span
           className="text-white text-xl place-self-end cursor-pointer"
@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 type="text"
                 id="titulo"
                 name="titulo"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
               />
             </div>
             <div className="mb-4">
@@ -43,7 +43,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
               <textarea
                 name="description"
                 id="description"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                 placeholder="O que a sua equipe faz?"
               />
               <label
