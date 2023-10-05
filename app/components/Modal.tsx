@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { submitProject } from '@/app/services/ApiService';
 import React from 'react';
 
 interface ModalProps {
@@ -7,6 +9,28 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
+  const [projectData, setProject] = useState({
+    title: '',
+    description: '',
+    projectOwner: 1,
+  });
+
+  const handleChangeProject = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setProject({
+      ...projectData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmitProject = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitProject(projectData);
+    console.log(projectData);
+  };
+
   if (!isvisible) return null;
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
@@ -18,19 +42,20 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
           X
         </span>
         <div className="bg-slate-950 p-2 rounded text-white">
-          <form>
+          <form onSubmit={handleSubmitProject}>
             <div className="mb-4">
               <label
-                htmlFor="Título"
+                htmlFor="title"
                 className="block text-gray-ba font-semibold mb-2"
               >
                 Título
               </label>
               <input
                 type="text"
-                id="titulo"
-                name="titulo"
+                id="title"
+                name="title"
                 className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                onChange={handleChangeProject}
               />
             </div>
             <div className="mb-4">
@@ -45,6 +70,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 id="description"
                 className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                 placeholder="O que a sua equipe faz?"
+                onChange={handleChangeProject}
               />
               <label
                 htmlFor="Time"
