@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ModalTask from './ModalTask';
 
 type TaskProps = {
   taskId: number;
@@ -8,6 +9,11 @@ type TaskProps = {
 };
 
 export default function Task(props: TaskProps) {
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData('taskId', props.taskId.toString());
   };
@@ -18,6 +24,7 @@ export default function Task(props: TaskProps) {
       className="flex flex-col bg-pale-blue bg-opacity-[15%] w-56 h-40 rounded-lg p-3 cursor-pointer"
       draggable
       onDragStart={handleDragStart}
+      onClick={() => setShowModal(true)}
     >
       <div className="bg-red-500 bg-opacity-10 w-max px-4 rounded mt-2">
         <span className="text-red-500 font-bold uppercase">
@@ -30,6 +37,14 @@ export default function Task(props: TaskProps) {
       <p className="text-gray-ba text-sm first-letter:capitalize">
         {props.description}
       </p>
+      {showModal && (
+        <ModalTask
+          taskId={props.taskId}
+          showModal={showModal}
+          onClose={handleClose}
+          setShowModal={setShowModal}
+        />
+      )}
     </div>
   );
 }

@@ -12,7 +12,6 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
   const agora = new Date();
   const dataHoraISO = agora.toISOString();
 
-  console.log(dataHoraISO);
   const [formData, setFormData] = useState({
     title: '',
     term: '',

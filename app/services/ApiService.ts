@@ -51,6 +51,11 @@ export async function fetchTasks(projectId: number) {
   return response;
 }
 
+export async function fetchTask(taskId: number) {
+  const response = await instance.get(`/task/${taskId}`);
+  return response;
+}
+
 export async function submitTask(projectId: number, data: Partial<TaskType>) {
   const response = await instance.post(`/projects/${projectId}/task`, data);
   return response;

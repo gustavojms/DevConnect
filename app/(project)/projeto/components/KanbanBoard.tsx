@@ -28,20 +28,21 @@ export default function KanbanBoard(props: KanbanBoardProps) {
     e.preventDefault();
   };
 
+  async function getTasks() {
+    const response = await fetchTasks(props.projectId);
+    setTasks(response.data);
+  }
+
   useEffect(() => {
-    async function getTasks() {
-      const response = await fetchTasks(props.projectId);
-      setTasks(response.data);
-    }
     getTasks();
-  }, [props.projectId]);
+  }, []);
 
   return (
-    <div className="flex gap-20">
+    <div className="flex gap-10">
       {columns.map((column, index) => (
         <div
           key={index}
-          className=""
+          className="border-r border-gray-700"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
