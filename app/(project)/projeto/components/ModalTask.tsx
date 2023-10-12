@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { HTMLAttributes, useEffect, useState } from 'react';
+import TaskDetails from './TaskDetails';
 
 type ModalTaskProps = {
   taskId: number;
@@ -61,7 +62,7 @@ export default function ModalTask(props: ModalTaskProps) {
               name="title"
               onChange={(e) => handleValueChange(e)}
               value={task.title}
-              className="mb-2 bg-pale-blue-card border-none text-gray-ba"
+              className="mb-2 bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
             />
             <Textarea
               id="description"
@@ -69,8 +70,9 @@ export default function ModalTask(props: ModalTaskProps) {
               value={task.description}
               onChange={(e) => handleValueChange(e)}
               placeholder="Adicione uma descrição..."
-              className="resize-none bg-pale-blue-card border-none text-gray-ba"
+              className="resize-none bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
             />
+            <TaskDetails />
           </DialogDescription>
           <DialogFooter>
             <Button>Salvar</Button>
