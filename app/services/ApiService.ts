@@ -21,8 +21,8 @@ export async function submitData(data: any) {
   return response;
 }
 
-export async function fetchProjects() {
-  const response = await instance.get('/projects');
+export async function fetchProjects(userId: number) {
+  const response = await instance.get(`/projects/members/${userId}`);
   return response;
 }
 

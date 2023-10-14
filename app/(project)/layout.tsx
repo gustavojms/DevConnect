@@ -30,7 +30,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
 
     async function projects() {
       try {
-        const response = await fetchProjects();
+        const response = await fetchProjects(userSession?.payload.sub!);
         setProjetos(response.data);
       } catch (error) {
         throw new Error(error as string);

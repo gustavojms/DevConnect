@@ -1,62 +1,36 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { submitTeam } from '@/app/services/ApiService';
+import { useForm } from 'react-hook-form';
+import { getSession } from 'next-auth/react';
+import { SessionInterface } from '@/app/types/SessionType';
 import {
-  fetchTeams,
-  submitTeam,
-  submitTeamMember,
-} from '@/app/services/ApiService';
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 export default function Team() {
-  const [teams, setTeams] = useState([]);
-  const [formData, setFormData] = useState({
-    teamName: '',
-    description: '',
-    leaderId: 10,
-  });
+  const form = useForm();
 
-  const [formMember, setFormMember] = useState({
-    memberId: 19,
-    teamId: 1,
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  async function onSubmit(data: any) {
+    const userId = (await getSession()) as SessionInterface;
+    const response = await submitTeam({
+      teamName: data.teamName,
+      description: data.description,
+      leaderId: userId.payload.sub,
+    }).then(() => {
+      form.reset();
     });
-  };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submitTeam(formData);
-  };
 
-  const handleChangeMember = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormMember({
-      ...formMember,
-      [name]: value,
-    });
-  };
+    return response;
+  }
 
-  const handleSubmitMember = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submitTeamMember(1, formMember);
-  };
-
-  useEffect(() => {
-    async function fetchTeam() {
-      const response = await fetchTeams();
-      setTeams(response.data);
-      return response;
-    }
-    fetchTeam();
-  }, []);
   return (
     <div className="m-auto p-20 w-full static">
       <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-1/2 mx-auto flex-col justify-items-center ">
@@ -66,89 +40,47 @@ export default function Team() {
           </h1>
         </div>
         <div className="flex-none">
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="teamName"
-                className="block text-gray-ba font-semibold mb-2"
-              >
-                Nome da equipe:
-                <input
-                  type="text"
-                  id="teamName"
-                  name="teamName"
-                  className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                  value={formData.teamName}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="description"
-                className="block text-gray-ba font-semibold mb-2"
-              >
-                Descrição
-                <textarea
-                  name="description"
-                  id="description"
-                  className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                  placeholder="O que a sua equipe faz?"
-                  value={formData.description}
-                  onChange={handleChange}
-                />
-              </label>
-            </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="teamName"
+                render={({ field }) => (
+                  <FormItem className="mb-2">
+                    <FormLabel className="text-gray-250 text-opacity-70">
+                      Nome da equipe
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} type="text" className="w-56" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="mb-2">
+                    <FormLabel className="text-gray-250 text-opacity-70">
+                      Descrição
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} type="text" className="w-56" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <button
-              type="submit"
-              className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
-            >
-              Criar
-            </button>
-          </form>
-          <div className="flex flex-col mt-10 justify-center text-white">
-            <h1>Times existentes:</h1>
-            {teams.map((item: any) => (
-              <div key={item.id}>
-                <h1>{item.teamName}</h1>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="m-auto p-20 w-full static">
-        <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-1/2 mx-auto flex-col justify-items-center ">
-          <div>
-            <h1 className="text-bold mb-5 text-gray-ba ">Adicionar membros</h1>
-          </div>
-          <div className="flex-none">
-            <form onSubmit={handleSubmitMember}>
-              <div className="mb-4">
-                <label
-                  htmlFor="teamId"
-                  className="block text-gray-ba font-semibold mb-2"
-                >
-                  ID Membro:
-                  <input
-                    type="number"
-                    id="teamId"
-                    name="teamId"
-                    className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                    defaultValue={formMember.teamId}
-                    onChange={handleChangeMember}
-                  />
-                </label>
-                <button
-                  type="submit"
-                  className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
-                >
-                  Adicionar
-                </button>
-              </div>
+              <Button
+                type="submit"
+                className="mx-auto bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
+              >
+                Criar
+              </Button>
             </form>
-          </div>
+          </Form>
         </div>
       </div>
     </div>
