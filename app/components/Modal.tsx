@@ -2,6 +2,19 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { submitProject } from '@/app/services/ApiService';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { getSession } from 'next-auth/react';
+import { SessionInterface } from '../types/SessionType';
 
 interface ModalProps {
   isvisible: boolean;
@@ -9,27 +22,20 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
-  const [projectData, setProject] = useState({
-    title: '',
-    description: '',
-    projectOwner: 1,
-  });
+  const form = useForm();
 
-  const handleChangeProject = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setProject({
-      ...projectData,
-      [name]: value,
+  async function onSubmit(data: any) {
+    const userId = (await getSession()) as SessionInterface;
+    const response = await submitProject({
+      title: data.title,
+      description: data.description,
+      projectOwner: userId.payload.sub,
+    }).then(() => {
+      form.reset();
     });
-  };
 
-  const handleSubmitProject = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    submitProject(projectData);
-    console.log(projectData);
-  };
+    return response;
+  }
 
   if (!isvisible) return null;
   return (
@@ -42,66 +48,47 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
           X
         </span>
         <div className="bg-slate-950 p-2 rounded text-white">
-          <form onSubmit={handleSubmitProject}>
-            <div className="mb-4">
-              <label
-                htmlFor="title"
-                className="block text-gray-ba font-semibold mb-2"
-              >
-                Título
-              </label>
-              <input
-                type="text"
-                id="title"
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
                 name="title"
-                className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                onChange={handleChangeProject}
+                render={({ field }) => (
+                  <FormItem className="mb-2">
+                    <FormLabel className="text-gray-250 text-opacity-70">
+                      Titulo da tarefa
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} type="text" className="w-56" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="description"
-                className="block text-gray-ba font-semibold mb-2"
-              >
-                Descrição
-              </label>
-              <textarea
+              <FormField
+                control={form.control}
                 name="description"
-                id="description"
-                className="w-full text-black p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                placeholder="O que a sua equipe faz?"
-                onChange={handleChangeProject}
+                render={({ field }) => (
+                  <FormItem className="mb-2">
+                    <FormLabel className="text-gray-250 text-opacity-70">
+                      Descrição
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea {...field} className="w-56" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              <label
-                htmlFor="Time"
-                className="block text-gray-ba font-semibold mb-2"
-              >
-                Time
-              </label>
-              <select
-                name="time"
-                id="time"
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-              >
-                <option value="" className="bg-slate-950 border rounder-md">
-                  Time 1
-                </option>
-                <option value="" className="bg-slate-950 border rounder-md">
-                  Time 2
-                </option>
-                <option value="" className="bg-slate-950 border rounder-md">
-                  Time 3
-                </option>
-              </select>
-            </div>
 
-            <button
-              type="submit"
-              className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
-            >
-              Criar
-            </button>
-          </form>
+              <Button
+                type="submit"
+                className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
+              >
+                Criar
+              </Button>
+            </form>
+          </Form>
         </div>
       </div>
     </div>

@@ -22,23 +22,15 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
   const [projetos, setProjetos] = useState([] as any);
 
+  async function getUserProjects() {
+    const session = (await getSession()) as SessionInterface;
+    setUserSession(session);
+    const response = await fetchProjects(session.payload.sub!);
+    setProjetos(response.data);
+  }
+
   useEffect(() => {
-    async function getUser() {
-      const session = (await getSession()) as SessionInterface;
-      setUserSession(session);
-    }
-
-    async function projects() {
-      try {
-        const response = await fetchProjects(userSession?.payload.sub!);
-        setProjetos(response.data);
-      } catch (error) {
-        throw new Error(error as string);
-      }
-    }
-
-    projects();
-    getUser();
+    getUserProjects();
   }, []);
 
   return (
