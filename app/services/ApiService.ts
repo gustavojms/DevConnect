@@ -56,6 +56,11 @@ export async function fetchTask(taskId: number) {
   return response;
 }
 
+export async function getUser() {
+  const response = await instance.get('/user');
+  return response;
+}
+
 export async function submitTask(projectId: number, data: Partial<TaskType>) {
   const response = await instance.post(`/projects/${projectId}/task`, data);
   return response;
@@ -72,6 +77,7 @@ export async function submitTeamMember(teamId: number, data: any) {
   const response = await instance.post(`/teams/${teamId}/members/`, data);
   return response;
 }
+
 export async function submitProject(data: any) {
   const response = await instance.post('/projects', data);
   return response;
