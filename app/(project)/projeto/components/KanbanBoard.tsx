@@ -1,4 +1,8 @@
-import { fetchTasks, updateTaskStatus } from '@/app/services/ApiService';
+import {
+  fetchTasks,
+  fetchUsersOfProject,
+  updateTaskStatus,
+} from '@/app/services/ApiService';
 import { TaskType } from '@/app/types/TaskType';
 import { useEffect, useState } from 'react';
 import TaskList from './TaskList';

@@ -61,6 +61,11 @@ export async function getUser() {
   return response;
 }
 
+export async function fetchUsersOfProject(projectId: number) {
+  const response = await instance.get(`/projects/${projectId}/members`);
+  return response;
+}
+
 export async function submitTask(projectId: number, data: Partial<TaskType>) {
   const response = await instance.post(`/projects/${projectId}/task`, data);
   return response;
@@ -70,6 +75,11 @@ export async function updateTaskStatus(taskId: number, status: string) {
   const response = await instance.patch(`/task/${taskId}`, {
     status,
   });
+  return response;
+}
+
+export async function updateTask(taskId: number, data: any) {
+  const response = await instance.patch(`/task/${taskId}`, data);
   return response;
 }
 

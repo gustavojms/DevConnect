@@ -95,6 +95,7 @@ export default function TaskList(props: TaskListProps) {
           title={task.title}
           description={task.description}
           priority={task.priority}
+          projectId={props.projectId}
         />
       ))}
     </div>
