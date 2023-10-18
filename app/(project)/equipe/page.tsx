@@ -25,10 +25,19 @@ export default function Team() {
 
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
+  const [selectedRole, setSelectedRole] = useState('');
+  const [userCount, setUserCount] = useState(1);
 
   const handleSelectChange = (e: any) => {
     const selectedUserId = e.target.value;
     setSelectedUser(selectedUserId);
+
+    const selectedValue = e.target.value;
+    setSelectedRole(selectedValue);
+  };
+
+  const handleAddUser = () => {
+    setUserCount(userCount + 1);
   };
 
   useEffect(() => {
@@ -102,20 +111,59 @@ export default function Team() {
                 )}
               />
               <div className="flex flex-col text-gray-250">
-                Usuarios
-                <select
-                  className="w-56 p-1 mt-2 mb-4"
-                  id="selectUser"
-                  value={selectedUser}
-                  onChange={handleSelectChange}
+                <Button
+                  type="button"
+                  className="mx-auto mr-4 
+                bg-blue-violet-500 hover:bg-blue-600 text-white 
+                py-2 px-4 rounded-md transition duration-300 ease-in-out"
+                  onClick={handleAddUser}
                 >
-                  {users.map((user: any) => (
-                    <option key={user.userId} value={user.userId}>
-                      {user.username}
-                    </option>
-                  ))}
-                </select>
+                  +
+                </Button>
+
+                <p>Usuário</p>
+
+                {Array.from({ length: userCount }).map((_, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <div key={index} className="flex flex-row">
+                    <select
+                      className="w-56 p-1 h-10 mt-2 mb-4 rounded-sm"
+                      id={`selectUser${index}`}
+                      value={users[index] ? users[index].username : ''}
+                      onChange={(e) => {
+                        const updatedUsers = [...users];
+                        updatedUsers[index] = {
+                          ...updatedUsers[index],
+                          username: e.target.value,
+                        };
+                        setUsers(updatedUsers);
+                      }}
+                    >
+                      {users.map((user: any) => (
+                        <option key={user.userId} value={user.username}>
+                          {user.username}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      className="w-56 p-1 mt-2 mb-4 ml-5 rounded-sm"
+                      id={`selectRole${index}`}
+                      value={selectedRole}
+                      onChange={handleSelectChange}
+                    >
+                      <option value="desenvolvedor">Desenvolvedor</option>
+                      <option value="testador">Testador</option>
+                      <option value="DBA">DBA</option>
+                    </select>
+                  </div>
+                ))}
               </div>
+
+              {/* <div className="flex flex-col text-gray-250">
+                Funções
+                
+              </div> */}
+
               <Button
                 type="submit"
                 className="mx-auto bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
