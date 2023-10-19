@@ -17,7 +17,7 @@ export default function SlugProject({ params }: ProjectSlugProps) {
   useEffect(() => {
     async function getProject() {
       const response = await fetchProject(params.slug);
-      setProject(response.data);
+      setProject(response);
     }
     getProject();
   }, [params.slug]);

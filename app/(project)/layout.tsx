@@ -26,7 +26,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
     const session = (await getSession()) as SessionInterface;
     setUserSession(session);
     const response = await fetchProjects(session.payload.sub!);
-    setProjetos(response.data);
+    setProjetos(response);
   }
 
   useEffect(() => {

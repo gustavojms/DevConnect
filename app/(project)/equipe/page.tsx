@@ -43,7 +43,7 @@ export default function Team() {
   useEffect(() => {
     async function fetchUsers() {
       const response = await getUser();
-      setUsers(response.data);
+      setUsers(response);
     }
 
     fetchUsers();
@@ -57,11 +57,11 @@ export default function Team() {
       leaderId: userId.payload.sub,
     });
 
-    if (response.data != null) {
+    if (response != null) {
       const userMemberId = parseInt(selectedUser, 10);
       const dataMember = {
         memberId: userMemberId,
-        teamId: response.data.teamId,
+        teamId: response.teamId,
       };
 
       await submitTeamMember(dataMember.teamId, dataMember);

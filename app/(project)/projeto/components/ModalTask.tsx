@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { HTMLAttributes, useEffect, useState } from 'react';
+import { HTMLAttributes, SetStateAction, useEffect, useState } from 'react';
 import TaskDetails from './TaskDetails';
 
 type ModalTaskProps = {
@@ -48,12 +48,12 @@ export default function ModalTask(props: ModalTaskProps) {
 
   async function getTask() {
     const response = await fetchTask(props.taskId);
-    setTask(response.data);
+    setTask(response);
   }
 
   async function fetchUsers() {
     const response = await fetchUsersOfProject(props.projectId);
-    setUsers(response.data);
+    setUsers(response);
   }
 
   useEffect(() => {
