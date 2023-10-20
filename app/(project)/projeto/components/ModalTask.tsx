@@ -20,6 +20,10 @@ type ModalTaskProps = {
   setShowModal: (showModal: boolean) => void;
   onClose: () => void;
   projectId: number;
+  responsible: {
+    userId: number;
+    username: string;
+  };
 };
 
 export type User = {
@@ -89,6 +93,7 @@ export default function ModalTask(props: ModalTaskProps) {
           users={users}
           taskId={props.taskId}
           reporter={task.userId}
+          responsible={props.responsible}
         />
       </DialogContent>
     </Dialog>

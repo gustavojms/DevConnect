@@ -7,6 +7,10 @@ export type TaskType = {
   hoursTaken: number;
   userId: number;
   responsibleId: number;
+  responsible: {
+    userId: number;
+    username: string;
+  };
   projectId: number;
   sprintId: number;
   createdAt: Date;

@@ -7,6 +7,10 @@ type TaskProps = {
   description: string;
   priority: string;
   projectId: number;
+  responsible: {
+    userId: number;
+    username: string;
+  };
 };
 
 export default function Task(props: TaskProps) {
@@ -42,6 +46,7 @@ export default function Task(props: TaskProps) {
         <ModalTask
           projectId={props.projectId}
           taskId={props.taskId}
+          responsible={props.responsible}
           showModal={showModal}
           onClose={handleClose}
           setShowModal={setShowModal}

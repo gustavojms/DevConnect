@@ -48,6 +48,8 @@ export default function TaskList(props: TaskListProps) {
     (task) => task.status === props.column,
   );
 
+  console.log(columnTasks.map((task) => task.responsible));
+
   return (
     <div className="flex flex-col items-start p-4 rounded-lg mr-4 gap-5">
       <div className="flex justify-center items-center">
@@ -95,6 +97,7 @@ export default function TaskList(props: TaskListProps) {
           title={task.title}
           description={task.description}
           priority={task.priority}
+          responsible={task.responsible}
           projectId={props.projectId}
         />
       ))}

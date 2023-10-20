@@ -34,6 +34,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
 
   async function getTasks() {
     const response = await fetchTasks(props.projectId);
+    console.log(response);
     setTasks(response);
   }
 
