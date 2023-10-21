@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   if (!isvisible) return null;
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
-      <div className="w-[600px] flex flex-col">
+      <div className="w-[400px] flex flex-col">
         <span
           className="text-white text-xl place-self-end cursor-pointer"
           onClick={onClose}
@@ -56,10 +56,14 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 render={({ field }) => (
                   <FormItem className="mb-2">
                     <FormLabel className="text-gray-250 text-opacity-70">
-                      Titulo da tarefa
+                      Nome Do Projeto
                     </FormLabel>
                     <FormControl>
-                      <Input {...field} type="text" className="w-56" />
+                      <Input
+                        {...field}
+                        type="text"
+                        className="w-full text-black"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -74,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                       Descrição
                     </FormLabel>
                     <FormControl>
-                      <Textarea {...field} className="w-56" />
+                      <Textarea {...field} className="w-full text-black" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
