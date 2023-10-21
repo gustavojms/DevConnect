@@ -60,7 +60,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
               <MdGroups className="mr-2 h-6 w-6" />
               Comunidades
             </Link>
-            <Dropdown />
+            <Dropdown campo1="Criar Projeto" campo2="Ver Projetos" />
             <Link
               href="/equipe"
               className="flex py-4 bg-inherit text-gray-ba font-semibold"

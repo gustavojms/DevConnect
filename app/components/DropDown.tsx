@@ -6,8 +6,14 @@ import Modal from '@/app/components/Modal';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { HiOutlineEye } from 'react-icons/hi';
+import { type } from 'os';
 
-const Dropdown = () => {
+type DropdownProps = {
+  campo1: string;
+  campo2: string;
+};
+
+export default function Dropdown({ campo1, campo2 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -43,13 +49,13 @@ const Dropdown = () => {
                   className="flex py-1 bg-inherit text-pale-blue font-semibold cursor-pointer"
                   onClick={() => setShowModal(true)}
                 >
-                  Crie um projeto
+                  {campo1}
                   <MdAddCircleOutline className="ml-auto h-6 w-6" />
                 </span>
               </li>
               <li>
                 <span className="flex py-1 bg-inherit text-pale-blue font-semibold cursor-pointer">
-                  Ver Projetos
+                  {campo2}
                   <HiOutlineEye className="ml-auto h-6 w-6" />
                 </span>
               </li>
@@ -60,6 +66,4 @@ const Dropdown = () => {
       </div>
     </div>
   );
-};
-
-export default Dropdown;
+}
