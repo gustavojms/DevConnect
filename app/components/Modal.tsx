@@ -39,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
 
   if (!isvisible) return null;
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
+    <div className=" fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-20">
       <div className="w-[400px] flex flex-col">
         <span
           className="text-white text-xl place-self-end cursor-pointer"

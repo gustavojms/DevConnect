@@ -35,7 +35,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
 
   return (
     <>
-      <header className="bg-gray-1000 h-14 flex relative">
+      <header className="bg-gray-1000 h-14 flex relative z-40">
         <aside className="bg-gray-1000 p-6 fixed h-full max-w-[250px]">
           <h1 className="text-3xl text-transparent bg-clip-text bg-gradient-to-r from-blue-violet-500 to-lilac">
             DevConnect

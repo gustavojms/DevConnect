@@ -43,7 +43,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
   }, []);
 
   return (
-    <div className="flex gap-10">
+    <div className="flex gap-10 relative z-10">
       {columns.map((column, index) => (
         <div
           key={index}
