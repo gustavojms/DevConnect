@@ -2,6 +2,7 @@
 
 import {
   getUser,
+  submitRole,
   submitTeam,
   submitTeamMember,
 } from '@/app/services/ApiService';
@@ -22,28 +23,36 @@ import { useEffect, useState } from 'react';
 
 export default function Team() {
   const form = useForm();
-
+  const roleOptions = ['desenvolvedor', 'testador', 'DBA'];
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
   const [selectedRole, setSelectedRole] = useState('');
-  const [userCount, setUserCount] = useState(1);
+  // const [userCount, setUserCount] = useState(1);
+  // const [usersToSend, setUsersToSend] = useState([]);
 
   const handleSelectChange = (e: any) => {
-    const selectedUserId = e.target.value;
+    const selectedUserId = e.target.value || users[0].userId;
     setSelectedUser(selectedUserId);
-
     const selectedValue = e.target.value;
     setSelectedRole(selectedValue);
   };
 
-  const handleAddUser = () => {
-    setUserCount(userCount + 1);
-  };
+  // const handleAddUser = () => {
+  //   setUserCount(userCount + 1);
+  //   const user = {
+  //     memberId: parseInt(selectedUser, 10),
+  //     roleName: selectedRole || roleOptions[0],
+  //   }
+
+  //   setUsersToSend([...usersToSend, user]);
+  //   console.log(usersToSend)
+  // };
 
   useEffect(() => {
     async function fetchUsers() {
       const response = await getUser();
       setUsers(response);
+      console.log(response);
     }
 
     fetchUsers();
@@ -64,6 +73,14 @@ export default function Team() {
         teamId: response.teamId,
       };
 
+      const dataMemberRole = {
+        roleName: selectedRole || roleOptions[0],
+        userId: 1,
+      };
+
+      console.log(dataMemberRole);
+
+      await submitRole(dataMemberRole);
       await submitTeamMember(dataMember.teamId, dataMember);
     }
     return response;
@@ -111,7 +128,7 @@ export default function Team() {
                 )}
               />
               <div className="flex flex-col text-gray-250">
-                <Button
+                {/* <Button
                   type="button"
                   className="mx-auto mr-4 
                 bg-blue-violet-500 hover:bg-blue-600 text-white 
@@ -119,7 +136,7 @@ export default function Team() {
                   onClick={handleAddUser}
                 >
                   +
-                </Button>
+                </Button> */}
 
                 <p>Usuário</p>
 
