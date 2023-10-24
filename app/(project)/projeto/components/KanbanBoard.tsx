@@ -50,7 +50,12 @@ export default function KanbanBoard(props: KanbanBoardProps) {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
-          <TaskList tasks={tasks} column={column} projectId={props.projectId} />
+          <TaskList
+            tasks={tasks}
+            column={column}
+            projectId={props.projectId}
+            onTaskCreated={getTasks}
+          />
         </div>
       ))}
     </div>

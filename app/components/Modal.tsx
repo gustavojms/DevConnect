@@ -30,6 +30,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
       title: data.title,
       description: data.description,
       projectOwner: userId.payload.sub,
+      isPublic: true,
     }).then(() => {
       form.reset();
     });
