@@ -40,14 +40,17 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   if (!isvisible) return null;
   return (
     <div className=" fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-20">
-      <div className="w-[400px] flex flex-col">
+      <div className="w-[600px] flex flex-col">
         <span
           className="text-white text-xl place-self-end cursor-pointer"
           onClick={onClose}
         >
           X
         </span>
-        <div className="bg-slate-950 p-2 rounded text-white">
+        <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-[600px] mx-auto flex-col">
+          <div>
+            <h1 className="text-bold mb-5 text-gray-ba ">Crie seu projeto!</h1>
+          </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
