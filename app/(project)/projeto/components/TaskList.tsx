@@ -98,6 +98,7 @@ export default function TaskList(props: TaskListProps) {
           description={task.description}
           priority={task.priority}
           responsible={task.responsible}
+          author={task.author}
           projectId={props.projectId}
         />
       ))}

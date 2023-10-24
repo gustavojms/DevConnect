@@ -11,6 +11,9 @@ type TaskProps = {
     userId: number;
     username: string;
   };
+  author: {
+    username: string;
+  };
 };
 
 export default function Task(props: TaskProps) {
@@ -47,6 +50,7 @@ export default function Task(props: TaskProps) {
           projectId={props.projectId}
           taskId={props.taskId}
           responsible={props.responsible}
+          author={props.author}
           showModal={showModal}
           onClose={handleClose}
           setShowModal={setShowModal}

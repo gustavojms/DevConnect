@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { HTMLAttributes, SetStateAction, useEffect, useState } from 'react';
 import TaskDetails from './TaskDetails';
+import { Label } from '@/components/ui/label';
 
 type ModalTaskProps = {
   taskId: number;
@@ -22,6 +23,9 @@ type ModalTaskProps = {
   projectId: number;
   responsible: {
     userId: number;
+    username: string;
+  };
+  author: {
     username: string;
   };
 };
@@ -67,7 +71,7 @@ export default function ModalTask(props: ModalTaskProps) {
 
   return (
     <Dialog open={props.showModal} onOpenChange={handleChange} modal>
-      <DialogContent className="grid grid-cols-2 gap-4 bg-midnight-blue text-white border-none">
+      <DialogContent className="grid grid-cols-2 gap-4 bg-midnight-blue text-white border-none p-10">
         <DialogHeader>
           <DialogTitle className="mb-4">
             Editar Tarefa {props.taskId}
@@ -78,15 +82,16 @@ export default function ModalTask(props: ModalTaskProps) {
             name="title"
             onChange={(e) => handleValueChange(e)}
             value={task.title}
-            className="mb-2 bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
+            className="text-2xl p-0 mb-2 bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
           />
+          <Label className="text-gray-ba">Descrição</Label>
           <Textarea
             id="description"
             name="description"
             value={task.description}
             onChange={(e) => handleValueChange(e)}
             placeholder="Adicione uma descrição..."
-            className="resize-none bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
+            className="p-0 resize-none bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
           />
         </DialogHeader>
         <TaskDetails
@@ -94,7 +99,24 @@ export default function ModalTask(props: ModalTaskProps) {
           taskId={props.taskId}
           reporter={task.userId}
           responsible={props.responsible}
+          author={props.author}
         />
+        <div className="flex flex-col gap-4">
+          <Label className="text-gray-ba">Data de início</Label>
+          <Input
+            type="date"
+            value={task.startedAt?.toString().split('T')[0]}
+            className="text-black"
+            placeholder="Data de início"
+          />
+          <Label className="text-gray-ba">Data de término</Label>
+          <Input
+            type="date"
+            value={task.endedAt?.toString().split('T')[0]}
+            className="text-black"
+            placeholder="Data de término"
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );
