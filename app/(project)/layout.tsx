@@ -1,6 +1,7 @@
 'use client';
 
 import Dropdown from '@/app/components/DropDown';
+import DropdownEquipe from '@/app/components/DropDownEquipe';
 import { fetchProjects } from '@/app/services/ApiService';
 import { SessionInterface } from '@/app/types/SessionType';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
-import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { LuSearch } from 'react-icons/lu';
 import { MdGroups } from 'react-icons/md';
@@ -61,13 +61,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
               Comunidades
             </Link>
             <Dropdown campo1="Criar Projeto" campo2="Ver Projetos" />
-            <Link
-              href="/equipe"
-              className="flex py-4 bg-inherit text-gray-ba font-semibold"
-            >
-              <BiGroup className="mr-2 h-6 w-6" />
-              Equipes
-            </Link>
+            <DropdownEquipe campo1="Criar Equipe" campo2="Ver Equipes" />
             <Link
               href="/configuracoes"
               className="flex py-4 bg-inherit text-gray-ba font-semibold"
