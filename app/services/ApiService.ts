@@ -161,3 +161,10 @@ export async function submitRole(data: any) {
     data,
   });
 }
+
+export async function getAllProjects() {
+  return fetchData<any>({
+    method: 'GET',
+    url: '/projects',
+  });
+}
