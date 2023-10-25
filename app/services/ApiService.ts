@@ -116,7 +116,7 @@ export async function submitTask(projectId: number, data: Partial<TaskType>) {
 export async function updateTaskStatus(taskId: number, status: string) {
   return fetchData<any>({
     method: 'PATCH',
-    url: `/task/${taskId}/status`,
+    url: `/task/${taskId}`,
     data: {
       status,
     },
