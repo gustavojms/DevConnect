@@ -2,6 +2,7 @@
 
 import {
   getUser,
+  submitRole,
   submitTeam,
   submitTeamMember,
 } from '@/app/services/ApiService';
@@ -20,7 +21,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { usersOptions } from './util';
+import { roleOptions, usersOptions } from './util';
 
 interface ModalProps {
   isvisible: boolean;
@@ -31,10 +32,11 @@ export default function Team({ isvisible, onClose }: ModalProps) {
   const form = useForm();
   const [users, setUsers] = useState([]);
   const [selectedUserOption, setSelectedUserOption] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState({});
 
   const userOptionListener = (selectedOption: any) => {
     setSelectedUserOption(selectedOption);
-    console.log(selectedOption);
+    console.log(selectedRoles);
   };
 
   useEffect(() => {
@@ -62,8 +64,15 @@ export default function Team({ isvisible, onClose }: ModalProps) {
           memberId: user.value,
           teamId: response.teamId,
         };
+
+        const roleMember = {
+          userId: user.value,
+          roleName: selectedRoles[user.value].value,
+        };
         // eslint-disable-next-line no-await-in-loop
         await submitTeamMember(dataMember.teamId, dataMember);
+        // eslint-disable-next-line no-await-in-loop
+        await submitRole(roleMember);
       }
     }
     return response;
@@ -130,6 +139,30 @@ export default function Team({ isvisible, onClose }: ModalProps) {
                   value={selectedUserOption}
                   onChange={userOptionListener}
                 />
+
+                <FormLabel className="text-gray-250 text-opacity-70">
+                  Membros
+                </FormLabel>
+
+                {selectedUserOption.map((user) => (
+                  <div key={user.value}>
+                    <p className="text-gray-250 text-opacity-70 mr-2">
+                      {user.label}
+                    </p>
+                    <Select
+                      options={roleOptions}
+                      className="basic-multi-select mb-2"
+                      classNamePrefix="select"
+                      value={selectedRoles[user.value] || null}
+                      onChange={(selectedOption) => {
+                        setSelectedRoles({
+                          ...selectedRoles,
+                          [user.value]: selectedOption,
+                        });
+                      }}
+                    />
+                  </div>
+                ))}
 
                 <Button
                   type="submit"
