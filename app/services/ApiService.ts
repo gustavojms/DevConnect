@@ -168,3 +168,18 @@ export async function getAllProjectsPublic() {
     url: '/projects/public',
   });
 }
+
+export async function updateTeam(teamId: number, data: any) {
+  return fetchData<any>({
+    method: 'PATCH',
+    url: `/teams/${teamId}`,
+    data,
+  });
+}
+
+export async function findAllTeams() {
+  return fetchData<any>({
+    method: 'GET',
+    url: '/teams',
+  });
+}
