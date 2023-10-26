@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { getSession } from 'next-auth/react';
 import { SessionInterface } from '../types/SessionType';
-import { Checkbox } from '@/components/ui/checkbox';
+import { useToast } from '@/components/ui/use-toast';
 import {
   Select,
   SelectTrigger,
@@ -31,6 +31,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   const form = useForm();
+  const { toast } = useToast();
 
   async function onSubmit(data: any) {
     if (data.isPublic === '1') {
@@ -46,6 +47,10 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
       projectOwner: userId.payload.sub,
       isPublic: data.isPublic,
     }).then(() => {
+      toast({
+        className: 'bg-green-300 text-green-700 font-bold border-none',
+        description: 'Projeto criado com sucesso!',
+      });
       form.reset();
     });
 
@@ -73,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 name="title"
                 render={({ field }) => (
                   <FormItem className="mb-2">
-                    <FormLabel className="text-gray-ba text-opacity-70">
+                    <FormLabel className="text-gray-ba bg- text-opacity-70">
                       Nome Do Projeto
                     </FormLabel>
                     <FormControl>

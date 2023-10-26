@@ -18,12 +18,17 @@ type TaskProps = {
 
 export default function Task(props: TaskProps) {
   const [showModal, setShowModal] = useState(false);
-  const handleClose = () => {
+
+  const handleCloseModal = () => {
     setShowModal(false);
   };
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData('taskId', props.taskId.toString());
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
   };
 
   return (
@@ -32,7 +37,7 @@ export default function Task(props: TaskProps) {
       className="flex flex-col bg-pale-blue bg-opacity-[15%] w-56 h-40 rounded-lg p-3 cursor-pointer"
       draggable
       onDragStart={handleDragStart}
-      onClick={() => setShowModal(true)}
+      onClick={handleOpenModal}
     >
       <div className="bg-red-500 bg-opacity-10 w-max px-4 rounded mt-2">
         <span className="text-red-500 font-bold uppercase">
@@ -51,8 +56,8 @@ export default function Task(props: TaskProps) {
           taskId={props.taskId}
           responsible={props.responsible}
           author={props.author}
-          showModal={showModal}
-          onClose={handleClose}
+          showModal={handleOpenModal}
+          onClose={handleCloseModal}
           setShowModal={setShowModal}
         />
       )}
