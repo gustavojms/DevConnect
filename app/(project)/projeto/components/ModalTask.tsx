@@ -71,11 +71,9 @@ export default function ModalTask(props: ModalTaskProps) {
 
   return (
     <Dialog open={props.showModal} onOpenChange={handleChange} modal>
-      <DialogContent className="grid grid-cols-2 gap-4 bg-midnight-blue text-white border-none p-10">
-        <DialogHeader>
-          <DialogTitle className="mb-4">
-            Editar Tarefa {props.taskId}
-          </DialogTitle>
+      <DialogContent className="grid grid-cols-2 gap-4 bg-midnight-blue text-white border-none">
+        <DialogHeader className="flex flex-col justify-around">
+          <DialogTitle>Editar Tarefa Nº {props.taskId}</DialogTitle>
           <Input
             type="text"
             id="title"
@@ -84,39 +82,29 @@ export default function ModalTask(props: ModalTaskProps) {
             value={task.title}
             className="text-2xl p-0 mb-2 bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
           />
-          <Label className="text-gray-ba">Descrição</Label>
-          <Textarea
-            id="description"
-            name="description"
-            value={task.description}
-            onChange={(e) => handleValueChange(e)}
-            placeholder="Adicione uma descrição..."
-            className="p-0 resize-none bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
+          <Label className="text-gray-ba">Defina a prioriedade</Label>
+          <div>
+            <Label className="text-gray-ba">Descrição</Label>
+            <Textarea
+              id="description"
+              name="description"
+              value={task.description}
+              onChange={(e) => handleValueChange(e)}
+              placeholder="Adicione uma descrição..."
+              className="p-0 resize-none bg-transparent hover:bg-pale-blue-card border-none text-gray-ba"
+            />
+          </div>
+        </DialogHeader>
+        <DialogHeader>
+          <TaskDetails
+            users={users}
+            task={task}
+            taskId={props.taskId}
+            reporter={task.userId}
+            responsible={props.responsible}
+            author={props.author}
           />
         </DialogHeader>
-        <TaskDetails
-          users={users}
-          taskId={props.taskId}
-          reporter={task.userId}
-          responsible={props.responsible}
-          author={props.author}
-        />
-        <div className="flex flex-col gap-4">
-          <Label className="text-gray-ba">Data de início</Label>
-          <Input
-            type="date"
-            value={task.startedAt?.toString().split('T')[0]}
-            className="text-black"
-            placeholder="Data de início"
-          />
-          <Label className="text-gray-ba">Data de término</Label>
-          <Input
-            type="date"
-            value={task.endedAt?.toString().split('T')[0]}
-            className="text-black"
-            placeholder="Data de término"
-          />
-        </div>
       </DialogContent>
     </Dialog>
   );

@@ -162,9 +162,9 @@ export async function submitRole(data: any) {
   });
 }
 
-export async function getAllProjects() {
+export async function getAllProjectsPublic() {
   return fetchData<any>({
     method: 'GET',
-    url: '/projects',
+    url: '/projects/public',
   });
 }

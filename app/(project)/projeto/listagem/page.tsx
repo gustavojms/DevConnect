@@ -1,6 +1,6 @@
 'use client';
 
-import { getAllProjects } from '@/app/services/ApiService';
+import { getAllProjectsPublic } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
 
 export default function Listagem() {
@@ -9,7 +9,7 @@ export default function Listagem() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const response = await getAllProjects();
+        const response = await getAllProjectsPublic();
         // console.log(response);
         if (Array.isArray(response)) {
           setProjects(response);
@@ -33,7 +33,7 @@ export default function Listagem() {
             <li key={project.id}>
               {' '}
               {/* Substitua 'id' pelo campo único de seus projetos */}
-              <div className="text-white bg-midnight-blue p-8 mt-4">
+              <div className="text-white bg-midnight-blue p-8 mt-4 rounded">
                 <p>Criador: {project.projectOwner}</p>
                 <p>Nome do Projeto: {project.title}</p>
                 <p>Descrição: {project.description}</p>
