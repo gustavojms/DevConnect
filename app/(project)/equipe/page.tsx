@@ -140,18 +140,18 @@ export default function Team({ isvisible, onClose }: ModalProps) {
                   onChange={userOptionListener}
                 />
 
-                <FormLabel className="text-gray-250 text-opacity-70">
-                  Membros
+                <FormLabel className=" text-gray-250 text-opacity-70">
+                  Funções
                 </FormLabel>
 
                 {selectedUserOption.map((user) => (
                   <div key={user.value}>
-                    <p className="text-gray-250 text-opacity-70 mr-2">
+                    <p className=" my-2 text-gray-250 text-opacity-70 mr-2">
                       {user.label}
                     </p>
                     <Select
                       options={roleOptions}
-                      className="basic-multi-select mb-2"
+                      className="basic-multi-select mb-4 w-56"
                       classNamePrefix="select"
                       value={selectedRoles[user.value] || null}
                       onChange={(selectedOption) => {
