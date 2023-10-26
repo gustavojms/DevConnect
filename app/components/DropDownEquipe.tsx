@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { RiHome5Fill, RiCodeSSlashFill } from 'react-icons/ri';
-import Modal from '@/app/components/Modal';
+import { BiGroup } from 'react-icons/bi';
+import Modal from '@/app/(project)/equipe/page';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { HiOutlineEye } from 'react-icons/hi';
@@ -36,8 +36,8 @@ export default function Dropdown({ campo1, campo2 }: DropdownProps) {
           className="flex py-4 bg-transparent text-gray-ba font-semibold text-lg cursor-pointer items-center"
           onClick={toggleDropdown}
         >
-          <RiCodeSSlashFill className="mr-2 h-6 w-6" />
-          Projetos
+          <BiGroup className="mr-2 h-6 w-6" />
+          Equipes
           <IoMdArrowDropdown className="ml-auto h-6 w-6" />
         </span>
 

@@ -1,4 +1,8 @@
-import { fetchTasks, updateTaskStatus } from '@/app/services/ApiService';
+import {
+  fetchTasks,
+  fetchUsersOfProject,
+  updateTaskStatus,
+} from '@/app/services/ApiService';
 import { TaskType } from '@/app/types/TaskType';
 import { useEffect, useState } from 'react';
 import TaskList from './TaskList';
@@ -28,24 +32,30 @@ export default function KanbanBoard(props: KanbanBoardProps) {
     e.preventDefault();
   };
 
+  async function getTasks() {
+    const response = await fetchTasks(props.projectId);
+    setTasks(response);
+  }
+
   useEffect(() => {
-    async function getTasks() {
-      const response = await fetchTasks(props.projectId);
-      setTasks(response.data);
-    }
     getTasks();
-  }, [props.projectId]);
+  }, []);
 
   return (
-    <div className="flex gap-20">
+    <div className="flex gap-10 relative z-10">
       {columns.map((column, index) => (
         <div
           key={index}
-          className=""
+          className="border-r border-gray-700"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
-          <TaskList tasks={tasks} column={column} projectId={props.projectId} />
+          <TaskList
+            tasks={tasks}
+            column={column}
+            projectId={props.projectId}
+            onTaskCreated={getTasks}
+          />
         </div>
       ))}
     </div>

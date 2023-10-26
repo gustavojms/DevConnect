@@ -21,6 +21,7 @@ type TaskListProps = {
   projectId: number;
   tasks: TaskType[];
   column: any;
+  onTaskCreated: () => void;
 };
 
 export default function TaskList(props: TaskListProps) {
@@ -28,6 +29,7 @@ export default function TaskList(props: TaskListProps) {
   const form = useForm();
   const handleNewTask = () => {
     setNewTask(!newTask);
+    props.onTaskCreated();
   };
 
   async function onSubmit(data: any) {
@@ -95,6 +97,9 @@ export default function TaskList(props: TaskListProps) {
           title={task.title}
           description={task.description}
           priority={task.priority}
+          responsible={task.responsible}
+          author={task.author}
+          projectId={props.projectId}
         />
       ))}
     </div>

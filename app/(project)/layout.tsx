@@ -1,6 +1,7 @@
 'use client';
 
 import Dropdown from '@/app/components/DropDown';
+import DropdownEquipe from '@/app/components/DropDownEquipe';
 import { fetchProjects } from '@/app/services/ApiService';
 import { SessionInterface } from '@/app/types/SessionType';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
-import { BiGroup } from 'react-icons/bi';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { LuSearch } from 'react-icons/lu';
 import { MdGroups } from 'react-icons/md';
@@ -22,28 +22,20 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
   const [projetos, setProjetos] = useState([] as any);
 
+  async function getUserProjects() {
+    const session = (await getSession()) as SessionInterface;
+    setUserSession(session);
+    const response = await fetchProjects(session.payload.sub!);
+    setProjetos(response);
+  }
+
   useEffect(() => {
-    async function getUser() {
-      const session = (await getSession()) as SessionInterface;
-      setUserSession(session);
-    }
-
-    async function projects() {
-      try {
-        const response = await fetchProjects();
-        setProjetos(response.data);
-      } catch (error) {
-        throw new Error(error as string);
-      }
-    }
-
-    projects();
-    getUser();
+    getUserProjects();
   }, []);
 
   return (
     <>
-      <header className="bg-gray-1000 h-14 flex relative">
+      <header className="bg-gray-1000 h-14 flex relative z-40">
         <aside className="bg-gray-1000 p-6 fixed h-full max-w-[250px]">
           <h1 className="text-3xl text-transparent bg-clip-text bg-gradient-to-r from-blue-violet-500 to-lilac">
             DevConnect
@@ -68,14 +60,8 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
               <MdGroups className="mr-2 h-6 w-6" />
               Comunidades
             </Link>
-            <Dropdown />
-            <Link
-              href="/equipe"
-              className="flex py-4 bg-inherit text-gray-ba font-semibold"
-            >
-              <BiGroup className="mr-2 h-6 w-6" />
-              Equipes
-            </Link>
+            <Dropdown campo1="Criar Projeto" campo2="Ver Projetos" />
+            <DropdownEquipe campo1="Criar Equipe" campo2="Ver Equipes" />
             <Link
               href="/configuracoes"
               className="flex py-4 bg-inherit text-gray-ba font-semibold"
@@ -87,12 +73,12 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
           <Separator className="mt-5 bg-gray-600" />
           <h1 className="text-gray-ba text-lg mt-5">Meus projetos</h1>
           <nav className="mt-5 gap-5 grid">
-            {projetos.map((projeto: any) => (
+            {projetos?.map((projeto: any) => (
               <Link
-                href={`/projeto/${projeto.projectId}`}
+                href={`/projeto/${projeto?.projectId}`}
                 className="cursor-pointer h-10 flex justify-center items-center capitalize bg-midnight-blue rounded-md text-gray-ba font-semibold"
               >
-                {projeto.title}
+                {projeto?.title}
               </Link>
             ))}
           </nav>

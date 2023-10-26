@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
+import { Toaster } from '@/components/ui/toaster';
 import NextAuthSessionProvider from './providers/sessionProvider';
 
 const poppins = Poppins({
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} bg-dark-blue m-0 p-0 box-border`}>
         <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+        <Toaster />
       </body>
     </html>
   );

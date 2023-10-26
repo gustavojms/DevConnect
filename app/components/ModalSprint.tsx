@@ -2,6 +2,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState } from 'react';
 import { submitSprint } from '../services/ApiService';
+import { Input } from '@/components/ui/input';
 
 interface ModalSprintProps {
   isvisible: boolean;
@@ -12,7 +13,6 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
   const agora = new Date();
   const dataHoraISO = agora.toISOString();
 
-  console.log(dataHoraISO);
   const [formData, setFormData] = useState({
     title: '',
     term: '',
@@ -26,8 +26,6 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
       ...formData,
       [name]: value,
     });
-    const formattedDate = formatDateToISO(selectedDate);
-    const updatedFormData = { ...formData, term: formattedDate };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,8 +41,8 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateChange = (date: any) => {
-    setSelectedDate(date);
-    const formattedDate = formatDateToISO(date);
+    setSelectedDate(date.target.value);
+    const formattedDate = date.target.value;
     setFormData({
       ...formData,
       term: formattedDate,
@@ -60,7 +58,7 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
 
   if (!isvisible) return null;
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-30">
       <div className="w-[600px] flex flex-col">
         <span
           className="text-white text-xl place-self-end cursor-pointer"
@@ -97,13 +95,11 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
               >
                 Prazo
               </label>
-              <DatePicker
-                className="w-full text-black cursor-pointer p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                selected={selectedDate}
+              <Input
+                className="w-72 text-black cursor-pointer p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                 onChange={handleDateChange}
-                value={formData.term}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="dd/mm/yyyy"
+                type="date"
+                placeholder="dd/mm/yyyy"
               />
             </div>
 
