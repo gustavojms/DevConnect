@@ -11,8 +11,13 @@ export type TaskType = {
     userId: number;
     username: string;
   };
+  author: {
+    username: string;
+  };
   projectId: number;
   sprintId: number;
   createdAt: Date;
   updatedAt: Date;
+  startedAt: Date;
+  endedAt: Date;
 };

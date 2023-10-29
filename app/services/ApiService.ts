@@ -116,7 +116,7 @@ export async function submitTask(projectId: number, data: Partial<TaskType>) {
 export async function updateTaskStatus(taskId: number, status: string) {
   return fetchData<any>({
     method: 'PATCH',
-    url: `/task/${taskId}/status`,
+    url: `/task/${taskId}`,
     data: {
       status,
     },
@@ -159,5 +159,27 @@ export async function submitRole(data: any) {
     method: 'POST',
     url: '/roles',
     data,
+  });
+}
+
+export async function getAllProjectsPublic() {
+  return fetchData<any>({
+    method: 'GET',
+    url: '/projects/public',
+  });
+}
+
+export async function updateTeam(teamId: number, data: any) {
+  return fetchData<any>({
+    method: 'PATCH',
+    url: `/teams/${teamId}`,
+    data,
+  });
+}
+
+export async function findAllTeams() {
+  return fetchData<any>({
+    method: 'GET',
+    url: '/teams',
   });
 }

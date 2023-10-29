@@ -34,7 +34,6 @@ export default function KanbanBoard(props: KanbanBoardProps) {
 
   async function getTasks() {
     const response = await fetchTasks(props.projectId);
-    console.log(response);
     setTasks(response);
   }
 
@@ -51,7 +50,12 @@ export default function KanbanBoard(props: KanbanBoardProps) {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
-          <TaskList tasks={tasks} column={column} projectId={props.projectId} />
+          <TaskList
+            tasks={tasks}
+            column={column}
+            projectId={props.projectId}
+            onTaskCreated={getTasks}
+          />
         </div>
       ))}
     </div>

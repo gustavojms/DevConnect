@@ -73,12 +73,12 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
           <Separator className="mt-5 bg-gray-600" />
           <h1 className="text-gray-ba text-lg mt-5">Meus projetos</h1>
           <nav className="mt-5 gap-5 grid">
-            {projetos.map((projeto: any) => (
+            {projetos?.map((projeto: any) => (
               <Link
-                href={`/projeto/${projeto.projectId}`}
+                href={`/projeto/${projeto?.projectId}`}
                 className="cursor-pointer h-10 flex justify-center items-center capitalize bg-midnight-blue rounded-md text-gray-ba font-semibold"
               >
-                {projeto.title}
+                {projeto?.title}
               </Link>
             ))}
           </nav>

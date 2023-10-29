@@ -15,6 +15,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { getSession } from 'next-auth/react';
 import { SessionInterface } from '../types/SessionType';
+import { useToast } from '@/components/ui/use-toast';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select';
 
 interface ModalProps {
   isvisible: boolean;
@@ -23,14 +31,26 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   const form = useForm();
+  const { toast } = useToast();
 
   async function onSubmit(data: any) {
+    if (data.isPublic === '1') {
+      data.isPublic = true;
+    } else {
+      data.isPublic = false;
+    }
+
     const userId = (await getSession()) as SessionInterface;
     const response = await submitProject({
       title: data.title,
       description: data.description,
       projectOwner: userId.payload.sub,
+      isPublic: data.isPublic,
     }).then(() => {
+      toast({
+        className: 'bg-green-300 text-green-700 font-bold border-none',
+        description: 'Projeto criado com sucesso!',
+      });
       form.reset();
     });
 
@@ -58,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 name="title"
                 render={({ field }) => (
                   <FormItem className="mb-2">
-                    <FormLabel className="text-gray-250 text-opacity-70">
+                    <FormLabel className="text-gray-ba bg- text-opacity-70">
                       Nome Do Projeto
                     </FormLabel>
                     <FormControl>
@@ -77,7 +97,7 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 name="description"
                 render={({ field }) => (
                   <FormItem className="mb-2">
-                    <FormLabel className="text-gray-250 text-opacity-70">
+                    <FormLabel className="text-gray-ba text-opacity-70">
                       Descrição
                     </FormLabel>
                     <FormControl>
@@ -88,12 +108,41 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                 )}
               />
 
-              <Button
-                type="submit"
-                className="mx-auto w-full bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
-              >
-                Criar
-              </Button>
+              <FormField
+                control={form.control}
+                name="isPublic"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-gray-ba">
+                      Visibilidade do projeto
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="1">Público</SelectItem>
+                        <SelectItem value="0">Privado</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="flex justify-center">
+                <Button
+                  type="submit"
+                  className="w-52 bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 mt-10 rounded-md transition duration-300 ease-in-out"
+                >
+                  Criar
+                </Button>
+              </div>
             </form>
           </Form>
         </div>

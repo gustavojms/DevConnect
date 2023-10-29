@@ -21,6 +21,7 @@ type TaskListProps = {
   projectId: number;
   tasks: TaskType[];
   column: any;
+  onTaskCreated: () => void;
 };
 
 export default function TaskList(props: TaskListProps) {
@@ -28,6 +29,7 @@ export default function TaskList(props: TaskListProps) {
   const form = useForm();
   const handleNewTask = () => {
     setNewTask(!newTask);
+    props.onTaskCreated();
   };
 
   async function onSubmit(data: any) {
@@ -47,8 +49,6 @@ export default function TaskList(props: TaskListProps) {
   const columnTasks = props.tasks.filter(
     (task) => task.status === props.column,
   );
-
-  console.log(columnTasks.map((task) => task.responsible));
 
   return (
     <div className="flex flex-col items-start p-4 rounded-lg mr-4 gap-5">
@@ -98,6 +98,7 @@ export default function TaskList(props: TaskListProps) {
           description={task.description}
           priority={task.priority}
           responsible={task.responsible}
+          author={task.author}
           projectId={props.projectId}
         />
       ))}
