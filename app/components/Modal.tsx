@@ -61,12 +61,12 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   return (
     <div className=" fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-20">
       <div className="w-[600px] flex flex-col">
-        <span
-          className="text-white text-xl place-self-end cursor-pointer"
+        <Button
+          className="text-white text-xl place-self-end cursor-pointer bg-transparent"
           onClick={onClose}
         >
-          X
-        </span>
+          x
+        </Button>
         <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-[600px] mx-auto flex-col">
           <div>
             <h1 className="text-bold mb-5 text-gray-ba ">Crie seu projeto!</h1>
