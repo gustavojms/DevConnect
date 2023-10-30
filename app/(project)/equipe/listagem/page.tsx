@@ -10,7 +10,7 @@ export default function Listagem() {
     async function fetchTeams() {
       try {
         const response = await findAllTeams();
-        console.log(response);
+        // console.log(response);
         if (Array.isArray(response)) {
           setTeams(response);
         } else {
