@@ -37,6 +37,7 @@ export default function Listagem() {
                 <p>Criador: {project.projectOwner}</p>
                 <p>Nome do Projeto: {project.title}</p>
                 <p>Descrição: {project.description}</p>
+                <a href={`/projeto/${project.projectId}`}>Ver projeto</a>
               </div>
             </li>
           ))}
