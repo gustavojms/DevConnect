@@ -10,7 +10,7 @@ export default function Listagem() {
     async function fetchTeams() {
       try {
         const response = await findAllTeams();
-        // console.log(response);
+        console.log(response);
         if (Array.isArray(response)) {
           setTeams(response);
         } else {
@@ -36,7 +36,6 @@ export default function Listagem() {
               <div className="text-white bg-midnight-blue p-8 mt-4 rounded">
                 <p>Criador: {team.leaderId}</p>
                 <p>Nome da equipe: {team.teamName}</p>
-                <p>Projetos: {team.projectId}</p>
                 <p>Descrição: {team.description}</p>
                 <p>Membros: {team.members}</p>
               </div>
