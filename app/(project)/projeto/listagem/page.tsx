@@ -31,13 +31,10 @@ export default function Listagem() {
         <ul>
           {projects.map((project) => (
             <li key={project.id}>
-              {' '}
-              {/* Substitua 'id' pelo campo único de seus projetos */}
-              <div className="text-white bg-midnight-blue p-8 mt-4 rounded">
+              <div className="text-white bg-midnight-blue p-8 mt-4">
                 <p>Criador: {project.projectOwner}</p>
                 <p>Nome do Projeto: {project.title}</p>
                 <p>Descrição: {project.description}</p>
-                <a href={`/projeto/${project.projectId}`}>Ver projeto</a>
               </div>
             </li>
           ))}
