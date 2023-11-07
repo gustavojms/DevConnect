@@ -62,6 +62,13 @@ export async function submitTeam(data: any) {
   });
 }
 
+export async function deleteTeam(teamId: number) {
+  return fetchData<any>({
+    method: 'DELETE',
+    url: `/teams/${teamId}`,
+  });
+}
+
 export async function fetchProject(id: string) {
   return fetchData<any>({
     method: 'GET',
