@@ -38,8 +38,8 @@ export default function TaskDetails(props: TaskDetailsProps) {
               <label className="">Responsável</label>
               <select className="w-full max-w-full p-2 rounded-md bg-inherit hover:bg-gray-600">
                 {props.responsible !== null ? (
-                  <option value={props.responsible.userId}>
-                    {props.responsible.username}
+                  <option value={props.responsible?.userId}>
+                    {props.responsible?.username}
                   </option>
                 ) : (
                   <>
@@ -81,7 +81,7 @@ export default function TaskDetails(props: TaskDetailsProps) {
         </Form>
         <div>
           <label>Criador</label>
-          <p className="capitalize text-gray-ba">{props.author.username}</p>
+          <p className="capitalize text-gray-ba">{props.author?.username}</p>
         </div>
       </div>
     </details>

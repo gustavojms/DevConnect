@@ -197,8 +197,8 @@ export default function ModalTask(props: ModalTaskProps) {
               task={task}
               taskId={props.taskId}
               reporter={task.userId}
-              responsible={props.responsible}
-              author={props.author}
+              responsible={task.responsible}
+              author={task.author}
             />
           </DialogHeader>
         </DialogContent>
