@@ -26,7 +26,7 @@ export default function Listagem() {
 
   return (
     <div className="">
-      e<h1 className="text-center text-white">Projetos</h1>
+      <h1 className="text-center text-white">Projetos</h1>
       <div>
         <ul>
           {projects.map((project) => (

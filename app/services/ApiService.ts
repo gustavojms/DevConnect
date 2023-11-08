@@ -190,3 +190,18 @@ export async function findAllTeams() {
     url: '/teams',
   });
 }
+
+export async function getAllPosts() {
+  return fetchData<any>({
+    method: 'GET',
+    url: '/posts',
+  });
+}
+
+export async function criaPost(data: any) {
+  return fetchData<any>({
+    method: 'POST',
+    url: '/posts',
+    data,
+  });
+}

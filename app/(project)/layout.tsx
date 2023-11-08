@@ -47,7 +47,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
             </Button>
 
             <Link
-              href="/"
+              href="/home"
               className="bg-inherit flex py-4 text-gray-ba font-semibold"
             >
               <RiHome5Fill className="mr-2 h-5 w-5" />
