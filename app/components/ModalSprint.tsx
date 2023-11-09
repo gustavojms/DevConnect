@@ -2,6 +2,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState } from 'react';
 import { submitSprint } from '../services/ApiService';
+import { Button } from '@/components/ui/button';
 
 interface ModalSprintProps {
   isvisible: boolean;
@@ -56,14 +57,14 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
   if (!isvisible) return null;
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
-      <div className="w-[400px] flex flex-col">
-        <span
-          className="text-white text-xl place-self-end cursor-pointer"
+      <div className="w-[600px] flex flex-col">
+        <Button
+          className="text-white text-xl place-self-end cursor-pointer bg-transparent"
           onClick={onClose}
         >
-          X
-        </span>
-        <div className="bg-slate-950 p-2 rounded text-white">
+          x
+        </Button>
+        <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-[600px] mx-auto flex-col">
           <h1 className="text-center mb-5 justify-center items-center text-3xl flex bg-inherit text-pale-blue font-semibold ">
             <span>Nova Sprint</span>
           </h1>
