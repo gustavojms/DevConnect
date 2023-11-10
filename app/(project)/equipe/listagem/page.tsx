@@ -1,10 +1,17 @@
 'use client';
 
-import { deleteTeam, findAllTeams } from '@/app/services/ApiService';
+import { deleteTeam, findAllTeams, getUser } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
+import Select from 'react-select';
+import { usersOptions } from '../util';
 
 export default function Listagem() {
   const [teams, setTeams] = useState<any[]>([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUserOption, setSelectedUserOption] = useState([]);
+  const userOptionListener = (selectedOption: any) => {
+    setSelectedUserOption(selectedOption);
+  };
 
   useEffect(() => {
     async function fetchTeams() {
@@ -19,13 +26,21 @@ export default function Listagem() {
       } catch (error) {
         // console.error('Erro ao obter equipes:', error);
       }
+      try {
+        const response = await getUser();
+        setUsers(usersOptions(response));
+        // eslint-disable-next-line spaced-comment
+        // console.log(response);
+      } catch (error) {
+        // console.log(error);
+      }
     }
 
     fetchTeams();
   }, []);
 
   const deleteTeamListener = async (teamId: number) => {
-    console.log('deletando equipe: %s', teamId);
+    // console.log('deletando equipe: %s', teamId);
     await deleteTeam(teamId);
   };
 
@@ -44,11 +59,35 @@ export default function Listagem() {
         </thead>
         <tbody className="divide-y divide-pale-blue-transparent">
           {teams.map((team) => (
+            // eslint-disable-next-line jsx-a11y/control-has-associated-label
             <tr key={team.teamId} className="text-white">
-              <td className=" px-6 py-2 ">{team.leaderId}</td>
-              <td className=" px-6 py-2 ">{team.teamName}</td>
-              <td className=" px-6 py-2 ">{team.description}</td>
-              <td className=" px-6 py-2 ">{team.members}</td>
+              <td className="px-6 py-2 ">{team.leaderId}</td>
+              <td className="px-6 py-2 ">
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <input
+                  className=" p-2 text-white bg-transparent rounded-sm border-transparent focus:outline-none focus:ring-1 focus:ring-slate-800 "
+                  defaultValue={team.teamName}
+                />
+              </td>
+              <td className="px-6 py-2 ">
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <input
+                  className=" p-2 text-white bg-transparent rounded-sm border-transparent focus:outline-none focus:ring-1 focus:ring-slate-800 "
+                  defaultValue={team.description}
+                />
+              </td>
+              <td className=" px-6 py-2 ">
+                <Select
+                  options={users}
+                  isMulti
+                  className="basic-multi-select mb-2 text-black"
+                  classNamePrefix="select"
+                  value={selectedUserOption}
+                  onChange={userOptionListener}
+                >
+                  {team.members}
+                </Select>
+              </td>
               <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                 <button
                   type="button"
