@@ -1,12 +1,23 @@
 'use client';
 
-import { deleteTeam, findAllTeams, getUser } from '@/app/services/ApiService';
+import {
+  deleteTeam,
+  findAllTeams,
+  getUser,
+  updateTeam,
+} from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { usersOptions } from '../util';
 
 export default function Listagem() {
   const [teams, setTeams] = useState<any[]>([]);
+  const [teamData, setTeamData] = useState({
+    teamId: 0,
+    teamName: '',
+    description: '',
+  });
+
   const [users, setUsers] = useState([]);
   const [selectedUserOption, setSelectedUserOption] = useState([]);
   const userOptionListener = (selectedOption: any) => {
@@ -26,6 +37,7 @@ export default function Listagem() {
       } catch (error) {
         // console.error('Erro ao obter equipes:', error);
       }
+
       try {
         const response = await getUser();
         setUsers(usersOptions(response));
@@ -39,8 +51,12 @@ export default function Listagem() {
     fetchTeams();
   }, []);
 
+  const editTeamListener = async () => {
+    await updateTeam(teamData.teamId, teamData);
+    setTeamData({ ...teamData, teamId: 0, teamName: '', description: '' });
+  };
+
   const deleteTeamListener = async (teamId: number) => {
-    // console.log('deletando equipe: %s', teamId);
     await deleteTeam(teamId);
   };
 
@@ -67,6 +83,15 @@ export default function Listagem() {
                 <input
                   className=" p-2 text-white bg-transparent rounded-sm border-transparent focus:outline-none focus:ring-1 focus:ring-slate-800 "
                   defaultValue={team.teamName}
+                  onBlur={() => editTeamListener()}
+                  onChange={(e) =>
+                    setTeamData({
+                      ...teamData,
+                      teamId: team.teamId,
+                      teamName: e.target.value,
+                      description: team.description,
+                    })
+                  }
                 />
               </td>
               <td className="px-6 py-2 ">
@@ -74,6 +99,15 @@ export default function Listagem() {
                 <input
                   className=" p-2 text-white bg-transparent rounded-sm border-transparent focus:outline-none focus:ring-1 focus:ring-slate-800 "
                   defaultValue={team.description}
+                  onBlur={() => editTeamListener()}
+                  onChange={(e) =>
+                    setTeamData({
+                      ...teamData,
+                      teamId: team.teamId,
+                      teamName: team.teamName,
+                      description: e.target.value,
+                    })
+                  }
                 />
               </td>
               <td className=" px-6 py-2 ">
