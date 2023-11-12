@@ -1,6 +1,7 @@
 import {
   fetchTask,
   fetchUsersOfProject,
+  getAllTaskByUser,
   updateTask,
 } from '@/app/services/ApiService';
 import { TaskType } from '@/app/types/TaskType';

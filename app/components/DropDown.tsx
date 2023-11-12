@@ -13,9 +13,10 @@ import Listagem from '../(project)/projeto/listagem/page';
 type DropdownProps = {
   campo1: string;
   campo2: string;
+  campo3: string;
 };
 
-export default function Dropdown({ campo1, campo2 }: DropdownProps) {
+export default function Dropdown({ campo1, campo2, campo3 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -61,6 +62,15 @@ export default function Dropdown({ campo1, campo2 }: DropdownProps) {
                   className="flex py-1 bg-inherit text-pale-blue font-semibold cursor-pointer"
                 >
                   {campo2}
+                  <HiOutlineEye className="ml-auto h-6 w-6" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/projeto/listagemTask"
+                  className="flex py-1 bg-inherit text-pale-blue font-semibold cursor-pointer"
+                >
+                  {campo3}
                   <HiOutlineEye className="ml-auto h-6 w-6" />
                 </Link>
               </li>

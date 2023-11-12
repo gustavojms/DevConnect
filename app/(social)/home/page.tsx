@@ -103,7 +103,11 @@ export default function Home() {
               <MdGroups className="mr-2 h-6 w-6" />
               Comunidades
             </Link>
-            <Dropdown campo1="Criar Projeto" campo2="Ver Projetos" />
+            <Dropdown
+              campo1="Criar Projeto"
+              campo2="Ver Projetos"
+              campo3="Tarefas Finalizadas"
+            />
             <DropdownEquipe campo1="Criar Equipe" campo2="Ver Equipes" />
             <Link
               href="/configuracoes"

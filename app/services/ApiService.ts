@@ -205,3 +205,10 @@ export async function criaPost(data: any) {
     data,
   });
 }
+
+export async function getAllTaskByUser() {
+  return fetchData<any>({
+    method: 'GET',
+    url: '/task/user/',
+  });
+}
