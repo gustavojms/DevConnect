@@ -3,7 +3,7 @@
 import { getSession } from 'next-auth/react';
 import Dropdown from '@/app/components/DropDown';
 import DropdownEquipe from '@/app/components/DropDownEquipe';
-import { criaPost } from '@/app/services/ApiService';
+import { criaPost, getAllPosts } from '@/app/services/ApiService';
 import { SessionInterface } from '@/app/types/SessionType';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -17,13 +17,7 @@ import { RiHome5Fill } from 'react-icons/ri';
 export default function Home() {
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
   const [projetos] = useState([] as any);
-  const [posts] = useState<any[]>([]);
-
-  // let userId: any;
-  // if (userSession != null) {
-  //   userId = userSession.payload.sub;
-  //   //console.log(userId + " aqui");
-  // }
+  const [posts, setPosts] = useState<any[]>([]);
 
   const [formData, setFormData] = useState({
     content: '',
@@ -45,8 +39,8 @@ export default function Home() {
     e.preventDefault();
     try {
       const response = await criaPost(formData);
-      console.log('Post enviado com sucesso:', response.data);
-      // console.log('Sprint enviada com sucesso:', response.data);
+      console.log(response);
+      // console.log('Post enviado com sucesso:', response.data);
     } catch (error) {
       // console.log('Post não enviado com sucesso');
     }
@@ -58,6 +52,24 @@ export default function Home() {
       setUserSession(session);
     }
     getUser();
+  }, []);
+
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        const response = await getAllPosts();
+        // console.log(response);
+        if (Array.isArray(response)) {
+          setPosts(response);
+        } else {
+          // console.error('Resposta inesperada:', response);
+        }
+      } catch (error) {
+        // console.error('Erro ao obter projetos:', error);
+      }
+    }
+
+    getPosts();
   }, []);
 
   // async function handleLogout() {
@@ -130,7 +142,7 @@ export default function Home() {
               onChange={handleInputChange}
             />
             <button
-              type="button"
+              type="submit"
               className="bg-blue-600 w-24 p-1 text-white font-semibold mr-6 mb-4 rounded-sm"
             >
               Publicar
@@ -138,16 +150,22 @@ export default function Home() {
           </form>
           {/* </div> */}
         </div>
-        {posts.map((post) => (
-          <div key={post.id} className="bg-gray-900 m-6 h-2/3 w-2/3 rounded-sm">
-            <div className="m-4">
-              <h1 className="text-white">Usuario: {post.userId}</h1>
-              <div className="bg-midnight-blue h-24 rounded-sm mt-4">
-                <p className="text-white p-8">{post.content}</p>
+        {posts
+          .slice()
+          .reverse()
+          .map((post) => (
+            <div
+              key={post.id}
+              className="bg-gray-900 m-6 h-2/3 w-2/3 rounded-sm"
+            >
+              <div className="m-4">
+                <h1 className="text-white">Usuario: {post.userId}</h1>
+                <div className="bg-midnight-blue h-24 rounded-sm mt-4">
+                  <p className="text-white p-8">{post.content}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </>
   );
