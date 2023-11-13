@@ -206,9 +206,9 @@ export async function criaPost(data: any) {
   });
 }
 
-export async function getAllTaskByUser() {
+export async function getAllTaskByUser(userId: number) {
   return fetchData<any>({
     method: 'GET',
-    url: '/task/user/',
+    url: `/task/user/${userId}`,
   });
 }
