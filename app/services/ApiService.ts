@@ -105,6 +105,21 @@ export async function getUser() {
   });
 }
 
+export async function fetchOneUser(userId: number) {
+  return fetchData<any>({
+    method: 'GET',
+    url: `/user/${userId}`,
+  });
+}
+
+export async function updateUser(data: any) {
+  return fetchData<any>({
+    method: 'PATCH',
+    url: `/user/${data.userId}`,
+    data,
+  });
+}
+
 export async function fetchUsersOfProject(projectId: number) {
   return fetchData<any>({
     method: 'GET',
