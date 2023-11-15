@@ -120,6 +120,13 @@ export async function updateUser(data: any) {
   });
 }
 
+export async function deleteUser(userId: number) {
+  return fetchData<any>({
+    method: 'DELETE',
+    url: `/user/${userId}`,
+  });
+}
+
 export async function fetchUsersOfProject(projectId: number) {
   return fetchData<any>({
     method: 'GET',

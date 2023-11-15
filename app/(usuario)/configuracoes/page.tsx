@@ -7,9 +7,15 @@ import { useForm } from 'react-hook-form';
 import { SessionInterface } from '@/app/types/SessionType';
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
-import { fetchOneUser, updateUser } from '@/app/services/ApiService';
+import {
+  deleteUser,
+  fetchOneUser,
+  updateUser,
+} from '@/app/services/ApiService';
+import { useRouter } from 'next/navigation';
 
 export default function Configuracoes() {
+  const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
   const [userData, setUserData] = useState({} as any);
@@ -22,6 +28,12 @@ export default function Configuracoes() {
       email: data.email || userData.email,
     };
     await updateUser(updatedData);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const deleteAccount = async () => {
+    await deleteUser(userSession?.payload.sub!);
+    router.replace('/home');
   };
 
   const info = async () => {
