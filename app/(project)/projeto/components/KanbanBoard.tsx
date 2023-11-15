@@ -133,7 +133,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
               </label>
               <input
                 type="text"
-                className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-indigo-500"
+                className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-indigo-500 text-black"
                 value={newColumnName}
                 onChange={(e) => setNewColumnName(e.target.value)}
               />
@@ -177,7 +177,7 @@ export default function KanbanBoard(props: KanbanBoardProps) {
               </label>
               <input
                 type="text"
-                className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-indigo-500"
+                className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-indigo-500 text-black"
                 value={newColumnName}
                 onChange={(e) => setNewColumnName(e.target.value)}
               />
