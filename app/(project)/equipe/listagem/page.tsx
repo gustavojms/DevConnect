@@ -61,7 +61,7 @@ export default function Listagem() {
   };
 
   return (
-    <div className="mt-10 ml-56 border border-pale-blue-transparent rounded-md overflow-hidden">
+    <div className="mt-10 ml-56 border border-pale-blue-transparent rounded-md">
       <table className="table-auto divide-y divide-pale-blue-transparent">
         <thead className="bg-gray-1000">
           <tr className=" text-blue-violet-500 text-lg">

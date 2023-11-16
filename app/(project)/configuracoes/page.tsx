@@ -13,6 +13,7 @@ import {
   updateUser,
 } from '@/app/services/ApiService';
 import { useRouter } from 'next/navigation';
+import { Label } from '@radix-ui/react-label';
 
 export default function Configuracoes() {
   const router = useRouter();
@@ -50,10 +51,10 @@ export default function Configuracoes() {
   });
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h- m-auto">
       <div>
         <h1 className="text-center text-white text-3xl mt-10">Configurações</h1>
-        <Card className="bg-midnight-blue border-none w-[470px] h-[470px] mt-10">
+        <Card className="bg-midnight-blue border-none w-[480px] h-[480px] mt-10">
           <CardHeader className="mt-2">
             <h1 className="text-left text-white">Informações básicas</h1>
             <p className="text-left text-white text-opacity-70 text-sm">
@@ -63,31 +64,34 @@ export default function Configuracoes() {
           <CardContent>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col justify-center items-center"
+              className="flex flex-col justify-center"
             >
+              <Label className="text-white"> Nome </Label>
               <Input
                 {...register('username')}
                 defaultValue={userData.username}
                 type="text"
                 placeholder="Nome de usuário"
-                className="w-[400px] h-[50px] mt-10"
+                className="w-[400px] h-[50px] mt-2 mb-5"
               />
+              <Label className="text-white "> Email </Label>
               <Input
                 {...register('email')}
                 defaultValue={userData.email}
                 type="text"
                 placeholder="E-mail"
-                className="w-[400px] h-[50px] mt-10"
+                className="w-[400px] h-[50px] mt-2 mb-5"
               />
+              <Label className="text-white "> Senha </Label>
               <Input
                 {...register('password')}
                 type="text"
                 placeholder="Nova Senha ou Senha Atual"
-                className="w-[400px] h-[50px] mt-10"
+                className="w-[400px] h-[50px] mt-2 mb-5"
               />
               <Button
                 type="submit"
-                className="bg-pale-blue hover:bg-blue-violet-600 w-[286px] mt-5"
+                className="bg-pale-blue hover:bg-blue-violet-500  w-[260px] m-auto"
               >
                 Salvar alterações
               </Button>
