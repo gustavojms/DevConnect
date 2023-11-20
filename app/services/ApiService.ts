@@ -168,6 +168,13 @@ export async function submitTeamMember(teamId: number, data: any) {
   });
 }
 
+export async function fetchTeamMembers(teamId: number) {
+  return fetchData<any>({
+    method: 'GET',
+    url: `/teams/${teamId}/members`,
+  });
+}
+
 export async function submitProject(data: any) {
   return fetchData<any>({
     method: 'POST',

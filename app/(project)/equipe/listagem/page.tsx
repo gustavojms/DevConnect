@@ -3,12 +3,10 @@
 import {
   deleteTeam,
   findAllTeams,
-  getUser,
   updateTeam,
 } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
-import Select from 'react-select';
-import { usersOptions } from '../util';
+import EditTeamForm from './EditTeamForm';
 
 export default function Listagem() {
   const [teams, setTeams] = useState<any[]>([]);
@@ -17,12 +15,6 @@ export default function Listagem() {
     teamName: '',
     description: '',
   });
-
-  const [users, setUsers] = useState([]);
-  const [selectedUserOption, setSelectedUserOption] = useState([]);
-  const userOptionListener = (selectedOption: any) => {
-    setSelectedUserOption(selectedOption);
-  };
 
   useEffect(() => {
     async function fetchTeams() {
@@ -36,15 +28,6 @@ export default function Listagem() {
         }
       } catch (error) {
         // console.error('Erro ao obter equipes:', error);
-      }
-
-      try {
-        const response = await getUser();
-        setUsers(usersOptions(response));
-        // eslint-disable-next-line spaced-comment
-        // console.log(response);
-      } catch (error) {
-        // console.log(error);
       }
     }
 
@@ -62,12 +45,12 @@ export default function Listagem() {
 
   return (
     <div className="mt-10 ml-56 border border-pale-blue-transparent rounded-md">
+      <EditTeamForm teamId={28} />
       <table className="table-auto divide-y divide-pale-blue-transparent">
         <thead className="bg-gray-1000">
           <tr className=" text-blue-violet-500 text-lg">
             <th className=" px-4 py-4 text-left">Nome da equipe</th>
             <th className=" px-4 py-4 text-left">Descrição</th>
-            <th className=" px-4 py-4">Membros</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-pale-blue-transparent">
@@ -105,18 +88,6 @@ export default function Listagem() {
                     })
                   }
                 />
-              </td>
-              <td className=" px-6 py-2 ">
-                <Select
-                  options={users}
-                  isMulti
-                  className="basic-multi-select mb-2 text-black"
-                  classNamePrefix="select"
-                  value={selectedUserOption}
-                  onChange={userOptionListener}
-                >
-                  {team.members}
-                </Select>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                 <button
