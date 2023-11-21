@@ -89,12 +89,21 @@ export default function Configuracoes() {
                 placeholder="Nova Senha ou Senha Atual"
                 className="w-[400px] h-[50px] mt-2 mb-5"
               />
-              <Button
-                type="submit"
-                className="bg-pale-blue hover:bg-blue-violet-500  w-[260px] m-auto"
-              >
-                Salvar alterações
-              </Button>
+              <div className="flex-row p-2">
+                <Button
+                  type="submit"
+                  className="bg-pale-blue hover:bg-blue-violet-500  w-[170px] m-auto mr-2"
+                >
+                  Salvar alterações
+                </Button>
+                <Button
+                  type="submit"
+                  onClick={deleteAccount}
+                  className="bg-red-500 hover:bg-red-700  w-[170px] m-auto ml-2"
+                >
+                  Deletar conta
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
