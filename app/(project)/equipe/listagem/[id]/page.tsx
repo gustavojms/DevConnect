@@ -1,5 +1,6 @@
 'use client';
 
+import LoadingAnimation from '@/app/components/LoadingAnimation';
 import { fetchTeamMembers } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
 
@@ -26,9 +27,10 @@ export default function EditTeamForm({ params }: TeamIdProps) {
 
   return (
     <div>
-      <h1 className="text-white">Cheguei aqui</h1>
       {team[0] === undefined ? (
-        <h1 className="text-white">Carregando...</h1>
+        <div className="mt-52">
+          <LoadingAnimation />
+        </div>
       ) : (
         team[0].team.members.map((member: any) => (
           <h1 className="text-white">{member.member.username}</h1>
