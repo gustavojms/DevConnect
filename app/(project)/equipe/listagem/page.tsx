@@ -6,7 +6,6 @@ import {
   updateTeam,
 } from '@/app/services/ApiService';
 import { useEffect, useState } from 'react';
-import EditTeamForm from './EditTeamForm';
 
 export default function Listagem() {
   const [teams, setTeams] = useState<any[]>([]);
@@ -45,7 +44,6 @@ export default function Listagem() {
 
   return (
     <div className="mt-10 ml-56 border border-pale-blue-transparent rounded-md">
-      <EditTeamForm teamId={28} />
       <table className="table-auto divide-y divide-pale-blue-transparent">
         <thead className="bg-gray-1000">
           <tr className=" text-blue-violet-500 text-lg">
@@ -91,6 +89,9 @@ export default function Listagem() {
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                 <button
+                  onClick={() => {
+                    window.location.href = `/equipe/listagem/${team.teamId}`;
+                  }}
                   type="button"
                   className="inline-flex items-center gap-x-2 text-base font-semibold rounded-lg border border-transparent text-blue-violet-500 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
