@@ -75,6 +75,8 @@ export default function Team({ isvisible, onClose }: ModalProps) {
         await submitRole(roleMember);
       }
     }
+
+    window.location.href = '/equipe/listagem';
     return response;
   }
 

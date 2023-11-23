@@ -4,6 +4,7 @@ import LoadingAnimation from '@/app/components/LoadingAnimation';
 import {
   fetchTeamMembers,
   getUser,
+  submitTeamMember,
   updateTeam,
 } from '@/app/services/ApiService';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Textarea } from '@/components/ui/textarea';
-import { usersOptions } from '../../util';
+import { teamMemberOptions, usersOptions } from '../../util';
 
 type TeamIdProps = {
   params: {
@@ -39,7 +40,7 @@ export default function EditTeamForm({ params }: TeamIdProps) {
       try {
         const response = await fetchTeamMembers(params.id);
         setTeam(response);
-        const o = usersOptions(response);
+        const o = teamMemberOptions(response[0].team.members);
         setSelectedMembers(o);
       } catch (error) {
         console.error(error);
@@ -56,6 +57,11 @@ export default function EditTeamForm({ params }: TeamIdProps) {
     getTeamData();
   }, [params.id]);
 
+  const userOptionListener = (selectedOption: any) => {
+    setSelectedMembers(selectedOption);
+    console.log(selectedMembers);
+  };
+
   const onSubmit = async (data: any) => {
     const teamData = {
       teamName: data.teamName || team[0].team.teamName,
@@ -63,7 +69,25 @@ export default function EditTeamForm({ params }: TeamIdProps) {
     };
 
     console.log(teamData);
-    await updateTeam(params.id, data);
+    const response = await updateTeam(Number(params.id), data);
+
+    if (response != null) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const user of selectedMembers) {
+        const memberData = {
+          memberId: (user as any).value,
+          teamId: Number(params.id),
+        };
+
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          await submitTeamMember(memberData.teamId, memberData);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }
+    window.location.href = '/equipe/listagem';
   };
 
   return (
@@ -114,6 +138,7 @@ export default function EditTeamForm({ params }: TeamIdProps) {
                       <Textarea
                         {...field}
                         className="w-96 max-h-[150px]"
+                        // default value
                         defaultValue={team[0].team.description}
                       />
                     </FormControl>
@@ -131,6 +156,7 @@ export default function EditTeamForm({ params }: TeamIdProps) {
                 className="basic-multi-select mb-2 "
                 classNamePrefix="select"
                 value={selectedMembers}
+                onChange={userOptionListener}
               />
 
               <Button

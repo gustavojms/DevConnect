@@ -22,3 +22,12 @@ export const usersOptions = (users: any) => {
 
   return r;
 };
+
+export const teamMemberOptions = (members: any) => {
+  const r = members.map((member: any) => ({
+    value: member.member.userId,
+    label: member.member.username,
+  }));
+
+  return r;
+};
