@@ -19,6 +19,7 @@ import { Input } from '@/components/ui/input';
 import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Textarea } from '@/components/ui/textarea';
 import { usersOptions } from '../../util';
 
 type TeamIdProps = {
@@ -75,9 +76,12 @@ export default function EditTeamForm({ params }: TeamIdProps) {
         // team[0].team.members.map((member: any) => (
         //   <h1 className="text-white">{member.member.username}</h1>
         // ))
-        <div>
+        <div className="bg-gray-1000 w-[800px] h-[455px] mt-10 p-6 rounded-md ">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormLabel className="text-gray-250 text-opacity-70 text-md">
+                Atualize os dados da sua equipe
+              </FormLabel>
               <FormField
                 control={form.control}
                 name="teamName"
@@ -107,10 +111,9 @@ export default function EditTeamForm({ params }: TeamIdProps) {
                       Descrição
                     </FormLabel>
                     <FormControl>
-                      <Input
+                      <Textarea
                         {...field}
-                        type="text"
-                        className="w-56"
+                        className="w-96 max-h-[150px]"
                         defaultValue={team[0].team.description}
                       />
                     </FormControl>
@@ -125,14 +128,14 @@ export default function EditTeamForm({ params }: TeamIdProps) {
               <Select
                 options={allMembers}
                 isMulti
-                className="basic-multi-select mb-2"
+                className="basic-multi-select mb-2 "
                 classNamePrefix="select"
                 value={selectedMembers}
               />
 
               <Button
                 type="submit"
-                className="mx-auto bg-gradient-to-r from-blue-violet-500 to-lilac hover:bg-blue-600 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
+                className="mx-auto mt-4 bg-blue-violet-600 hover:bg-blue-violet-500 text-white py-2 px-4 rounded-md transition duration-300 ease-in-out"
               >
                 Atualizar
               </Button>
