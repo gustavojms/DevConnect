@@ -5,6 +5,7 @@ import {
   findAllTeams,
   updateTeam,
 } from '@/app/services/ApiService';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
 
 export default function Listagem() {
@@ -39,16 +40,21 @@ export default function Listagem() {
   };
 
   const deleteTeamListener = async (teamId: number) => {
+    window.location.reload();
     await deleteTeam(teamId);
   };
 
   return (
     <div className="mt-10 ml-56 border border-pale-blue-transparent rounded-md">
-      <table className="table-auto divide-y divide-pale-blue-transparent">
+      <table className="table-auto divide-y bg-gray-1000 divide-pale-blue-transparent rounded-md">
         <thead className="bg-gray-1000">
           <tr className=" text-blue-violet-500 text-lg">
             <th className=" px-4 py-4 text-left">Nome da equipe</th>
             <th className=" px-4 py-4 text-left">Descrição</th>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+            <th className=" px-4 py-4 text-left" />
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+            <th className=" px-4 py-4 text-left" />
           </tr>
         </thead>
         <tbody className="divide-y divide-pale-blue-transparent">
@@ -95,7 +101,7 @@ export default function Listagem() {
                   type="button"
                   className="inline-flex items-center gap-x-2 text-base font-semibold rounded-lg border border-transparent text-blue-violet-500 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
-                  Editar
+                  <PencilSquareIcon className=" h-5 w-5 text-white hover:text-blue-500" />
                 </button>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
@@ -104,7 +110,7 @@ export default function Listagem() {
                   className="inline-flex items-center gap-x-2 text-base font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                   onClick={() => deleteTeamListener(team.teamId)}
                 >
-                  Apagar
+                  <TrashIcon className=" h-5 w-5 text-white hover:text-red-500" />
                 </button>
               </td>
             </tr>
