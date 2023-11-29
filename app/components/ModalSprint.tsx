@@ -3,6 +3,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState } from 'react';
 import { submitSprint } from '../services/ApiService';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
 
 interface ModalSprintProps {
   isvisible: boolean;
@@ -29,9 +30,17 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
     e.preventDefault();
     try {
       const response = await submitSprint(formData);
-      console.log('Sprint enviada com sucesso:', response.data);
+      toast({
+        className: 'bg-green-300 text-green-700 font-bold border-none',
+        description: 'Sprint criada com sucesso!',
+      });
+      onClose();
     } catch (error) {
       console.error('Erro ao enviar a sprint:', error);
+      toast({
+        className: 'bg-red-300 text-white font-bold border-none',
+        description: 'Erro ao criar Sprint!',
+      });
     }
   };
 
