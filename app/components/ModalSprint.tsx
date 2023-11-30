@@ -8,12 +8,19 @@ import { toast } from '@/components/ui/use-toast';
 interface ModalSprintProps {
   isvisible: boolean;
   onClose: () => void;
+  projectId: number;
 }
 
-const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
+const ModalSprint: React.FC<ModalSprintProps> = ({
+  isvisible,
+  onClose,
+  projectId,
+}) => {
+  console.log(projectId);
   const [formData, setFormData] = useState({
     title: '',
     term: '',
+    projectId: projectId,
   });
 
   const handleInputChange = (
@@ -34,6 +41,7 @@ const ModalSprint: React.FC<ModalSprintProps> = ({ isvisible, onClose }) => {
         className: 'bg-green-300 text-green-700 font-bold border-none',
         description: 'Sprint criada com sucesso!',
       });
+      console.log(response);
       onClose();
     } catch (error) {
       console.error('Erro ao enviar a sprint:', error);

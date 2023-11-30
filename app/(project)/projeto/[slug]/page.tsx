@@ -53,7 +53,15 @@ export default function SlugProject({ params }: ProjectSlugProps) {
       <p className="text-gray-ba capitalize font-bold ml-1">
         {project.description}
       </p>
-      <Sprint />
+      {project.sprint && project.sprint.length > 0 ? (
+        project.sprint.map((sprint: any) => (
+          <div key={sprint.sprintId}>
+            <p>{sprint.title}</p>
+          </div>
+        ))
+      ) : (
+        <Sprint projectId={params.slug} />
+      )}
       <Button
         onClick={handleTeamSelect}
         className="bg-transparent text-pale-blue text-opacity-40 w-max"
