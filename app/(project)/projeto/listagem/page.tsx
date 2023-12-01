@@ -30,8 +30,14 @@ export default function Listagem() {
       <div>
         <ul>
           {projects.map((project) => (
-            <li key={project.id}>
-              <div className="text-white bg-midnight-blue p-8 mt-4">
+            <li key={project.projectId}>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+              <div
+                className="text-white bg-midnight-blue p-8 mt-4 cursor-pointer"
+                onClick={() => {
+                  window.location.href = `/projeto/${project.projectId}`;
+                }}
+              >
                 <p>Criador: {project.projectOwner}</p>
                 <p>Nome do Projeto: {project.title}</p>
                 <p>Descrição: {project.description}</p>

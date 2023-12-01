@@ -4,8 +4,8 @@ import LoadingAnimation from '@/app/components/LoadingAnimation';
 import {
   fetchTeamMembers,
   getUser,
-  submitTeamMember,
   updateTeam,
+  updateTeamMembers,
 } from '@/app/services/ApiService';
 import { Button } from '@/components/ui/button';
 import {
@@ -57,12 +57,14 @@ export default function EditTeamForm({ params }: TeamIdProps) {
     getTeamData();
   }, [params.id]);
 
-  const userOptionListener = (selectedOption: any) => {
+  const userOptionListener = async (selectedOption: any) => {
     setSelectedMembers(selectedOption);
     console.log(selectedMembers);
   };
 
   const onSubmit = async (data: any) => {
+    const teamMembers = [];
+
     const teamData = {
       teamName: data.teamName || team[0].team.teamName,
       description: data.description || team[0].team.description,
@@ -78,15 +80,16 @@ export default function EditTeamForm({ params }: TeamIdProps) {
           memberId: (user as any).value,
           teamId: Number(params.id),
         };
+        teamMembers.push(memberData);
+      }
 
-        try {
-          // eslint-disable-next-line no-await-in-loop
-          await submitTeamMember(memberData.teamId, memberData);
-        } catch (error) {
-          console.error(error);
-        }
+      try {
+        await updateTeamMembers(params.id, teamMembers);
+      } catch (error) {
+        console.error(error);
       }
     }
+
     window.location.href = '/equipe/listagem';
   };
 
@@ -97,9 +100,6 @@ export default function EditTeamForm({ params }: TeamIdProps) {
           <LoadingAnimation />
         </div>
       ) : (
-        // team[0].team.members.map((member: any) => (
-        //   <h1 className="text-white">{member.member.username}</h1>
-        // ))
         <div className="bg-gray-1000 w-[800px] h-[455px] mt-10 p-6 rounded-md ">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>

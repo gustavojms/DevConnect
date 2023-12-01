@@ -175,6 +175,14 @@ export async function fetchTeamMembers(teamId: number) {
   });
 }
 
+export async function updateTeamMembers(teamId: number, data: any) {
+  return fetchData<any>({
+    method: 'POST',
+    url: `/teams/${teamId}/members/update`,
+    data,
+  });
+}
+
 export async function submitProject(data: any) {
   return fetchData<any>({
     method: 'POST',
@@ -239,5 +247,13 @@ export async function getAllTaskByUser(userId: number) {
   return fetchData<any>({
     method: 'GET',
     url: `/task/user/${userId}`,
+  });
+}
+
+export async function createPostComment(data: any) {
+  return fetchData<any>({
+    method: 'POST',
+    url: `/post/${data.postId}comments`,
+    data,
   });
 }
