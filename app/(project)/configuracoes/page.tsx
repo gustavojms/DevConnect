@@ -14,12 +14,14 @@ import {
 } from '@/app/services/ApiService';
 import { useRouter } from 'next/navigation';
 import { Label } from '@radix-ui/react-label';
+import { ConfirmDeleteAccountDialog } from '@/app/components/ConfirmDeleteAccountDialog';
 
 export default function Configuracoes() {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
   const [userData, setUserData] = useState({} as any);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const onSubmit = async (data: any) => {
     const updatedData = {
@@ -34,7 +36,7 @@ export default function Configuracoes() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const deleteAccount = async () => {
     await deleteUser(userSession?.payload.sub!);
-    router.replace('/home');
+    router.replace('/');
   };
 
   const info = async () => {
@@ -78,16 +80,19 @@ export default function Configuracoes() {
               <Input
                 {...register('email')}
                 defaultValue={userData.email}
-                type="text"
+                type="email"
                 placeholder="E-mail"
                 className="w-[400px] h-[50px] mt-2 mb-5"
               />
               <Label className="text-white "> Senha </Label>
               <Input
                 {...register('password')}
-                type="text"
-                placeholder="Nova Senha ou Senha Atual"
+                type="password"
+                placeholder="Nova Senha"
                 className="w-[400px] h-[50px] mt-2 mb-5"
+                pattern=".{8,}"
+                required
+                title="8 characters minimum"
               />
               <div className="flex-row p-2">
                 <Button
@@ -97,12 +102,17 @@ export default function Configuracoes() {
                   Salvar alterações
                 </Button>
                 <Button
-                  type="submit"
-                  onClick={deleteAccount}
+                  onClick={() => setDialogOpen(true)}
                   className="bg-red-500 hover:bg-red-700  w-[170px] m-auto ml-2"
                 >
                   Deletar conta
                 </Button>
+
+                <ConfirmDeleteAccountDialog
+                  onClose={() => setDialogOpen(false)}
+                  onDelete={() => deleteAccount()}
+                  open={dialogOpen}
+                />
               </div>
             </form>
           </CardContent>

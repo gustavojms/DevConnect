@@ -44,6 +44,7 @@ export default function Home() {
     } catch (error) {
       // console.log('Post não enviado com sucesso');
     }
+    window.location.reload();
   };
 
   useEffect(() => {
