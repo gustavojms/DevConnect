@@ -14,7 +14,7 @@ import {
 } from '@/app/services/ApiService';
 import { useRouter } from 'next/navigation';
 import { Label } from '@radix-ui/react-label';
-import { ConfirmDeleteAccountDialog } from '@/app/components/ConfirmDeleteAccountDialog';
+import { ConfirmDeleteDialog } from '@/app/components/ConfirmDeleteDialog';
 
 export default function Configuracoes() {
   const router = useRouter();
@@ -108,10 +108,12 @@ export default function Configuracoes() {
                   Deletar conta
                 </Button>
 
-                <ConfirmDeleteAccountDialog
+                <ConfirmDeleteDialog
                   onClose={() => setDialogOpen(false)}
                   onDelete={() => deleteAccount()}
                   open={dialogOpen}
+                  title="Tem certeza que deseja deletar sua conta?"
+                  question="Essa ação não pode ser desfeita"
                 />
               </div>
             </form>

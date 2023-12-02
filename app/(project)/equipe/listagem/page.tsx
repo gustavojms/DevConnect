@@ -8,8 +8,10 @@ import {
 } from '@/app/services/ApiService';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
+import { ConfirmDeleteDialog } from '@/app/components/ConfirmDeleteDialog';
 
 export default function Listagem() {
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [teams, setTeams] = useState<any[]>([]);
   const [teamData, setTeamData] = useState({
     teamId: 0,
@@ -52,6 +54,7 @@ export default function Listagem() {
           <LoadingAnimation />
         </div>
       )}
+
       <div className="mt-10 ml-56 border border-pale-blue-transparent rounded-md">
         <table className="table-auto divide-y bg-gray-1000 divide-pale-blue-transparent rounded-md">
           <thead className="bg-gray-1000">
@@ -115,11 +118,18 @@ export default function Listagem() {
                   <button
                     type="button"
                     className="inline-flex items-center gap-x-2 text-base font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    onClick={() => deleteTeamListener(team.teamId)}
+                    onClick={() => setDialogOpen(true)}
                   >
                     <TrashIcon className=" h-5 w-5 text-white hover:text-red-500" />
                   </button>
                 </td>
+                <ConfirmDeleteDialog
+                  onClose={() => setDialogOpen(false)}
+                  onDelete={() => deleteTeamListener(team.teamId)}
+                  open={dialogOpen}
+                  title="Tem certeza que deseja deletar sua equipe?"
+                  question="Essa ação não pode ser desfeita"
+                />
               </tr>
             ))}
           </tbody>
