@@ -257,3 +257,10 @@ export async function createPostComment(data: any) {
     data,
   });
 }
+
+export async function findFinalizedTaskByProject(projectId: number) {
+  return fetchData<any>({
+    method: 'GET',
+    url: `/task/project/${projectId}`,
+  });
+}
