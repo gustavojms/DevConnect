@@ -134,6 +134,7 @@ export default function Home() {
         <h1 className="text-white w-full items-center flex justify-end">
           <p className="mr-5 capitalize">{userSession?.payload.username}</p>
         </h1>
+        /home/afreis/Code/projeto4/devconnect-api/.env.example
       </header>
       <div className="flex flex-col justify-center items-center">
         <div className="bg-gray-900 h-2/3 w-2/3 flex flex-col justify-center mt-10 rounded-sm">
@@ -160,10 +161,17 @@ export default function Home() {
           .reverse()
           .map((post) => (
             <div
-              key={post.id}
+              key={post.postId}
               className="bg-gray-900 m-6 h-2/3 w-2/3 rounded-sm"
             >
-              <div className="m-4">
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}{' '}
+              {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+              <div
+                className="m-4 cursor-pointer"
+                onClick={() => {
+                  window.location.href = `/home/1${post.postId}`;
+                }}
+              >
                 <h1 className="text-white">Usuario: {post.userId}</h1>
                 <div className="bg-midnight-blue h-24 rounded-sm mt-4">
                   <p className="text-white p-8">{post.content}</p>

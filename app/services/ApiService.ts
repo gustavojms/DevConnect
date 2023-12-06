@@ -243,6 +243,13 @@ export async function criaPost(data: any) {
   });
 }
 
+export default function getPostById(postId: number) {
+  return fetchData<any>({
+    method: 'GET',
+    url: `/posts/${postId}`,
+  });
+}
+
 export async function getAllTaskByUser(userId: number) {
   return fetchData<any>({
     method: 'GET',
