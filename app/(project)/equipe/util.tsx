@@ -1,15 +1,20 @@
 export const roleOptions = [
   {
-    value: 'Developer',
-    label: 'Developer',
+    value: 'Desenvolvedor',
+    label: 'Desenvolvedor',
   },
   {
-    value: 'DBA',
-    label: 'DBA',
+    value: 'QA',
+    label: 'QA',
   },
   {
-    value: 'Designer',
-    label: 'Designer',
+    value: 'Líder Técnico',
+    label: 'Líder Técnico',
+  },
+
+  {
+    value: 'Gerente de Projeto',
+    label: 'Gerente de Projeto',
   },
 ];
 

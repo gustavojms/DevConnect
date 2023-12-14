@@ -260,8 +260,29 @@ export async function getAllTaskByUser(userId: number) {
 export async function createPostComment(data: any) {
   return fetchData<any>({
     method: 'POST',
-    url: `/post/${data.postId}comments`,
+    url: `/posts/${data.postId}/comments`,
     data,
+  });
+}
+
+export async function getPostComment(postId: number) {
+  return fetchData<any>({
+    method: 'GET',
+    url: `/posts/${postId}/comments`,
+  });
+}
+
+export async function deletePostComment(postId: number, commentId: number) {
+  return fetchData<any>({
+    method: 'DELETE',
+    url: `/posts/${postId}/comments/${commentId}`,
+  });
+}
+
+export async function addLike(postId: number) {
+  return fetchData<any>({
+    method: 'POST',
+    url: `/posts/${postId}/likes`,
   });
 }
 

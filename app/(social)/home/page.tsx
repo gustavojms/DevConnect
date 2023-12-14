@@ -13,6 +13,7 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { LuSearch } from 'react-icons/lu';
 import { MdGroups } from 'react-icons/md';
 import { RiHome5Fill } from 'react-icons/ri';
+import { HeartIcon } from '@heroicons/react/24/solid';
 
 export default function Home() {
   const [userSession, setUserSession] = useState<SessionInterface | null>(null);
@@ -72,6 +73,10 @@ export default function Home() {
 
     getPosts();
   }, []);
+
+  // const handleLike = async (postId: number) => {
+
+  // }
 
   // async function handleLogout() {
   //   await signOut({ redirect: true, callbackUrl: '/' });
@@ -134,7 +139,6 @@ export default function Home() {
         <h1 className="text-white w-full items-center flex justify-end">
           <p className="mr-5 capitalize">{userSession?.payload.username}</p>
         </h1>
-        /home/afreis/Code/projeto4/devconnect-api/.env.example
       </header>
       <div className="flex flex-col justify-center items-center">
         <div className="bg-gray-900 h-2/3 w-2/3 flex flex-col justify-center mt-10 rounded-sm">
@@ -169,13 +173,27 @@ export default function Home() {
               <div
                 className="m-4 cursor-pointer"
                 onClick={() => {
-                  window.location.href = `/home/1${post.postId}`;
+                  window.location.href = `/post/${post.postId}`;
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    window.location.href = `/post/${post.postId}`;
+                  }
+                }}
+                role="button"
+                tabIndex={0}
               >
-                <h1 className="text-white">Usuario: {post.userId}</h1>
+                <h1 className="text-white">{post.User.username}</h1>
                 <div className="bg-midnight-blue h-24 rounded-sm mt-4">
                   <p className="text-white p-8">{post.content}</p>
                 </div>
+              </div>
+              <div className="cursor-pointer flex justify-end">
+                <HeartIcon
+                  className="h-6 w-6 text-white mr-4 mb-2 hover:text-red-500 hover:px-0.5 "
+                  onClick={() => handleLike(post.postId)}
+                />
+                <p className="text-white mr-4">{post.likesCount}</p>
               </div>
             </div>
           ))}
