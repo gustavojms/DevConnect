@@ -1,15 +1,20 @@
 export const roleOptions = [
   {
-    value: 'Developer',
-    label: 'Developer',
+    value: 'Desenvolvedor',
+    label: 'Desenvolvedor',
   },
   {
-    value: 'DBA',
-    label: 'DBA',
+    value: 'QA',
+    label: 'QA',
   },
   {
-    value: 'Designer',
-    label: 'Designer',
+    value: 'Líder Técnico',
+    label: 'Líder Técnico',
+  },
+
+  {
+    value: 'Gerente de Projeto',
+    label: 'Gerente de Projeto',
   },
 ];
 
@@ -18,6 +23,15 @@ export const usersOptions = (users: any) => {
   const r = users.map((user: any) => ({
     value: user.userId,
     label: user.username,
+  }));
+
+  return r;
+};
+
+export const teamMemberOptions = (members: any) => {
+  const r = members.map((member: any) => ({
+    value: member.member.userId,
+    label: member.member.username,
   }));
 
   return r;

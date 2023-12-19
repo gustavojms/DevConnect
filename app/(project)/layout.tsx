@@ -47,7 +47,7 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
             </Button>
 
             <Link
-              href="/"
+              href="/home"
               className="bg-inherit flex py-4 text-gray-ba font-semibold"
             >
               <RiHome5Fill className="mr-2 h-5 w-5" />
@@ -60,7 +60,11 @@ export default function ProjectLayout({ children }: ProjectLayoutProps) {
               <MdGroups className="mr-2 h-6 w-6" />
               Comunidades
             </Link>
-            <Dropdown campo1="Criar Projeto" campo2="Ver Projetos" />
+            <Dropdown
+              campo1="Criar Projeto"
+              campo2="Ver Projetos"
+              campo3="Tarefas finalizadas"
+            />
             <DropdownEquipe campo1="Criar Equipe" campo2="Ver Equipes" />
             <Link
               href="/configuracoes"

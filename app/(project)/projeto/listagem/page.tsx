@@ -26,14 +26,18 @@ export default function Listagem() {
 
   return (
     <div className="">
-      e<h1 className="text-center text-white">Projetos</h1>
+      <h1 className="text-center text-white">Projetos</h1>
       <div>
         <ul>
           {projects.map((project) => (
-            <li key={project.id}>
-              {' '}
-              {/* Substitua 'id' pelo campo único de seus projetos */}
-              <div className="text-white bg-midnight-blue p-8 mt-4 rounded">
+            <li key={project.projectId}>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+              <div
+                className="text-white bg-midnight-blue p-8 mt-4 cursor-pointer"
+                onClick={() => {
+                  window.location.href = `/projeto/${project.projectId}`;
+                }}
+              >
                 <p>Criador: {project.projectOwner}</p>
                 <p>Nome do Projeto: {project.title}</p>
                 <p>Descrição: {project.description}</p>

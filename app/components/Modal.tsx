@@ -1,6 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { submitProject } from '@/app/services/ApiService';
+import { useEffect, useState } from 'react';
+import {
+  findAllTeams,
+  submitProject,
+  updateTeam,
+} from '@/app/services/ApiService';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -32,6 +36,37 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
   const form = useForm();
   const { toast } = useToast();
+  const [teams, setTeams] = useState<any[]>([]);
+  const [selectedTeamId, setSelectedTeamId] = useState(null);
+  let teamId: number = 0;
+  useEffect(() => {
+    async function getTeams() {
+      try {
+        const response = await findAllTeams();
+        console.log(response);
+        if (Array.isArray(response)) {
+          setTeams(response);
+        } else {
+          // console.error('Resposta inesperada:', response);
+        }
+      } catch (error) {
+        // console.error('Erro ao obter projetos:', error);
+      }
+    }
+
+    getTeams();
+  }, []);
+
+  const handleTeamChange = (event: any) => {
+    const selectedId = event.target.value;
+    setSelectedTeamId(selectedId);
+  };
+
+  //console.log(selectedTeamId)
+
+  if (selectedTeamId != null) {
+    teamId = parseInt(selectedTeamId);
+  }
 
   async function onSubmit(data: any) {
     if (data.isPublic === '1') {
@@ -41,32 +76,55 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
     }
 
     const userId = (await getSession()) as SessionInterface;
-    const response = await submitProject({
-      title: data.title,
-      description: data.description,
-      projectOwner: userId.payload.sub,
-      isPublic: data.isPublic,
-    }).then(() => {
+
+    try {
+      const response = await submitProject({
+        title: data.title,
+        description: data.description,
+        projectOwner: userId.payload.sub,
+        isPublic: data.isPublic,
+        team: selectedTeamId,
+      });
+
       toast({
         className: 'bg-green-300 text-green-700 font-bold border-none',
         description: 'Projeto criado com sucesso!',
       });
-      form.reset();
-    });
 
-    return response;
+      if (response != null) {
+        const data: any = {
+          teamId: teamId,
+          projectId: response.projectId,
+        };
+
+        //console.log(teamId, "aqui está")
+        try {
+          await updateTeam(teamId, data);
+          console.log('Time atualizado com sucesso!');
+        } catch (error) {
+          console.error('Erro ao atualizar time:', error);
+        }
+      }
+
+      form.reset();
+
+      return response;
+    } catch (error) {
+      console.error('Erro ao criar projeto:', error);
+      // Trate o erro conforme necessário
+    }
   }
 
   if (!isvisible) return null;
   return (
     <div className=" fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-20">
       <div className="w-[600px] flex flex-col">
-        <span
-          className="text-white text-xl place-self-end cursor-pointer"
+        <Button
+          className="text-white text-xl place-self-end cursor-pointer bg-transparent"
           onClick={onClose}
         >
-          X
-        </span>
+          x
+        </Button>
         <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-[600px] mx-auto flex-col">
           <div>
             <h1 className="text-bold mb-5 text-gray-ba ">Crie seu projeto!</h1>
@@ -134,7 +192,19 @@ const Modal: React.FC<ModalProps> = ({ isvisible, onClose }) => {
                   </FormItem>
                 )}
               />
-
+              <div className="flex flex-col mt-2">
+                <label className="text-gray-ba">Selecione um time</label>
+                <select
+                  className="mt-1 rounded-sm h-10"
+                  onChange={handleTeamChange}
+                >
+                  {teams.map((team) => (
+                    <option key={team.teamId} value={team.teamId}>
+                      {team.teamName}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className="flex justify-center">
                 <Button
                   type="submit"

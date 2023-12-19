@@ -12,6 +12,7 @@ import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import KanbanBoard from '../components/KanbanBoard';
 import Sprint from '../components/Sprint';
+import TarefasAntigas from '../components/TarefasAntigas';
 
 type ProjectSlugProps = {
   params: {
@@ -53,7 +54,24 @@ export default function SlugProject({ params }: ProjectSlugProps) {
       <p className="text-gray-ba capitalize font-bold ml-1">
         {project.description}
       </p>
-      <Sprint />
+      {project.sprint && project.sprint.length > 0 ? (
+        project.sprint.map((sprint: any) => (
+          <div key={sprint.sprintId}>
+            <p>{sprint.title}</p>
+          </div>
+        ))
+      ) : (
+        <Sprint projectId={params.slug} />
+      )}
+      {project.sprint && project.sprint.length > 0 ? (
+        project.sprint.map((sprint: any) => (
+          <div key={sprint.sprintId}>
+            <p>{sprint.title}</p>
+          </div>
+        ))
+      ) : (
+        <TarefasAntigas projectId={params.slug} />
+      )}
       <Button
         onClick={handleTeamSelect}
         className="bg-transparent text-pale-blue text-opacity-40 w-max"

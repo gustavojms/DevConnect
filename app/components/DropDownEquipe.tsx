@@ -7,6 +7,7 @@ import { IoMdArrowDropdown } from 'react-icons/io';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { HiOutlineEye } from 'react-icons/hi';
 import { type } from 'os';
+import Link from 'next/link';
 
 type DropdownProps = {
   campo1: string;
@@ -54,10 +55,13 @@ export default function Dropdown({ campo1, campo2 }: DropdownProps) {
                 </span>
               </li>
               <li>
-                <span className="flex py-1 bg-inherit text-pale-blue font-semibold cursor-pointer">
+                <Link
+                  href="/equipe/listagem"
+                  className="flex py-1 bg-inherit text-pale-blue font-semibold cursor-pointer"
+                >
                   {campo2}
                   <HiOutlineEye className="ml-auto h-6 w-6" />
-                </span>
+                </Link>
               </li>
             </ul>
             <Modal isvisible={showModal} onClose={handleCloseModal} />

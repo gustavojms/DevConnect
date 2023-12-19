@@ -75,6 +75,8 @@ export default function Team({ isvisible, onClose }: ModalProps) {
         await submitRole(roleMember);
       }
     }
+
+    window.location.href = '/equipe/listagem';
     return response;
   }
 
@@ -83,10 +85,10 @@ export default function Team({ isvisible, onClose }: ModalProps) {
     <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-20">
       <div className="w-[600px] flex flex-col">
         <Button
-          className="text-white text-xl place-self-end cursor-pointer"
+          className="text-white text-xl place-self-end cursor-pointer bg-transparent"
           onClick={onClose}
         >
-          X
+          x
         </Button>
         <div className="bg-midnight-blue p-6 rounded-lg shadow-md w-[600px] mx-auto flex-col ">
           <div>
