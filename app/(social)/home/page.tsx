@@ -183,7 +183,7 @@ export default function Home() {
                 role="button"
                 tabIndex={0}
               >
-                <h1 className="text-white">{post.User.username}</h1>
+                <h1 className="text-white">{post.User?.username}</h1>
                 <div className="bg-midnight-blue h-24 rounded-sm mt-4">
                   <p className="text-white p-8">{post.content}</p>
                 </div>
